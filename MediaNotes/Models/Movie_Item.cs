@@ -2,7 +2,10 @@
 
 namespace MediaNotes.Models
 {
-    public class Movie
+    /// <summary>
+    /// Represents displayed movie item class
+    /// </summary>
+    public class Movie_Item
     {
         public string Id { get; set; }
         public string Title { get; set; }

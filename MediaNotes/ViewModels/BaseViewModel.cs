@@ -10,7 +10,7 @@ namespace MediaNotes.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Movie> DataStore => DependencyService.Get<IDataStore<Movie>>();
+        public IDataStore<Movie_Item> DataStore => DependencyService.Get<IDataStore<Movie_Item>>();
 
         bool isBusy = false;
         public bool IsBusy

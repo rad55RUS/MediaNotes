@@ -10,20 +10,20 @@ namespace MediaNotes.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        private Movie _selectedItem;
+        private Movie_Item _selectedItem;
 
-        public ObservableCollection<Movie> Items { get; }
+        public ObservableCollection<Movie_Item> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
-        public Command<Movie> ItemTapped { get; }
+        public Command<Movie_Item> ItemTapped { get; }
 
         public ItemsViewModel()
         {
             Title = "Browse";
-            Items = new ObservableCollection<Movie>();
+            Items = new ObservableCollection<Movie_Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<Movie>(OnItemSelected);
+            ItemTapped = new Command<Movie_Item>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
         }
@@ -57,7 +57,7 @@ namespace MediaNotes.ViewModels
             SelectedItem = null;
         }
 
-        public Movie SelectedItem
+        public Movie_Item SelectedItem
         {
             get => _selectedItem;
             set
@@ -72,7 +72,7 @@ namespace MediaNotes.ViewModels
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
-        async void OnItemSelected(Movie item)
+        async void OnItemSelected(Movie_Item item)
         {
             if (item == null)
                 return;

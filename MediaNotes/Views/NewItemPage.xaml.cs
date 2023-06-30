@@ -10,7 +10,7 @@ namespace MediaNotes.Views
 {
     public partial class NewItemPage : ContentPage
     {
-        public Movie Item { get; set; }
+        public Movie_Item Item { get; set; }
 
         public NewItemPage()
         {
