@@ -1,5 +1,6 @@
 ﻿// System libraries
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,16 +13,19 @@ using MediaNotes.Models;
 // Nuget libraries
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
+using Xamarin.Essentials;
 //
 
 namespace MediaNotes.Services
 {
     public class MockDataStore : IDataStore<Movie_Item>
     {
-        readonly List<Movie_Item> items;
+        protected List<Movie_Item> items;
 
         public MockDataStore()
         {
+            Task.Run(() => this.LoadItemsAsync()).Wait();
             /*
             items = new List<Item>()
             {
@@ -35,6 +39,26 @@ namespace MediaNotes.Services
             */
         }
 
+        /// <summary>
+        /// Load items from json file asynchronously
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> LoadItemsAsync()
+        {
+            using (var stream = await FileSystem.OpenAppPackageFileAsync("Movies.json"))
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    string fileContents = await reader.ReadToEndAsync();
+
+                    items = JsonConvert.DeserializeObject<List<Movie_Item>>(fileContents);
+                }
+            }
+
+            return await Task.FromResult(true);
+        }
+
+        #region IDataStore Realization
         public async Task<bool> AddItemAsync(Movie_Item item)
         {
             items.Add(item);
@@ -68,5 +92,6 @@ namespace MediaNotes.Services
         {
             return await Task.FromResult(items);
         }
+        #endregion
     }
 }

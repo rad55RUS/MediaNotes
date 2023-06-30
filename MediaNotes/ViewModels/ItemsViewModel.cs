@@ -69,7 +69,7 @@ namespace MediaNotes.ViewModels
 
         private async void OnAddItem(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(NewItemPage));
+            // await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
         async void OnItemSelected(Movie_Item item)

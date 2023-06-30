@@ -45,8 +45,8 @@ namespace MediaNotes.ViewModels
             {
                 var item = await DataStore.GetItemAsync(itemId);
                 Id = item.Id;
-                Text = item.Text;
-                Description = item.Description;
+                Text = item.Title;
+                Description = item.Plot;
             }
             catch (Exception)
             {
