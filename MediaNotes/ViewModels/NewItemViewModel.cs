@@ -49,7 +49,7 @@ namespace MediaNotes.ViewModels
 
         private async void OnSave()
         {
-            Item newItem = new Item()
+            Movie newItem = new Movie()
             {
                 Id = Guid.NewGuid().ToString(),
                 Text = Text,
