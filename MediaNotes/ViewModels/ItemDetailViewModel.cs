@@ -10,20 +10,20 @@ namespace MediaNotes.ViewModels
     public class ItemDetailViewModel : BaseViewModel
     {
         private string itemId;
-        private string text;
-        private string description;
+        private string movieTitle;
+        private string moviePlot;
         public string Id { get; set; }
 
-        public string Text
+        public string MovieTitle
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => movieTitle;
+            set => SetProperty(ref movieTitle, value);
         }
 
-        public string Description
+        public string MoviePlot
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => moviePlot;
+            set => SetProperty(ref moviePlot, value);
         }
 
         public string ItemId
@@ -45,8 +45,8 @@ namespace MediaNotes.ViewModels
             {
                 var item = await DataStore.GetItemAsync(itemId);
                 Id = item.Id;
-                Text = item.Title;
-                Description = item.Plot;
+                MovieTitle = item.Title;
+                MoviePlot = item.Plot;
             }
             catch (Exception)
             {

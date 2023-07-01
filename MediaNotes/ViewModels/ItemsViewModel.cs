@@ -19,7 +19,6 @@ namespace MediaNotes.ViewModels
 
         public ItemsViewModel()
         {
-            Title = "Browse";
             Items = new ObservableCollection<Movie_Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 

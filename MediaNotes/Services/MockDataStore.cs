@@ -15,13 +15,17 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using Xamarin.Essentials;
+using System.Net.Http;
+using System.Diagnostics.Contracts;
+using System.Net;
+using System.Text;
 //
 
 namespace MediaNotes.Services
 {
     public class MockDataStore : IDataStore<Movie_Item>
     {
-        protected List<Movie_Item> items;
+        protected List<Movie_Item> items = new List<Movie_Item>();
 
         public MockDataStore()
         {
@@ -45,14 +49,54 @@ namespace MediaNotes.Services
         /// <returns></returns>
         public async Task<bool> LoadItemsAsync()
         {
+            List<Movie_Item> itemsShort;
+
             using (var stream = await FileSystem.OpenAppPackageFileAsync("Movies.json"))
             {
                 using (var reader = new StreamReader(stream))
                 {
                     string fileContents = await reader.ReadToEndAsync();
 
-                    items = JsonConvert.DeserializeObject<List<Movie_Item>>(fileContents);
+                    itemsShort = JsonConvert.DeserializeObject<List<Movie_Item>>(fileContents);
                 }
+            }
+
+            foreach (Movie_Item item in itemsShort)
+            {
+                string url = "http://www.omdbapi.com/?apikey=4e73d28b&t=" + item.Title.Replace(' ', '+') + "&y=" + item.Year + "&plot=full";
+
+                try
+                {
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        Stream receiveStream = response.GetResponseStream();
+                        StreamReader readStream = null;
+                        if (response.CharacterSet == null)
+                        {
+                            readStream = new StreamReader(receiveStream);
+                        }
+                        else
+                        {
+                            readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                        }
+                        string data = readStream.ReadToEnd();
+                        items.Add(JsonConvert.DeserializeObject<Movie_Item>(data));
+
+                        response.Close();
+                        readStream.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(url + " response failed.");
+                }
+            }
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                items[i].Id = i.ToString();
             }
 
             return await Task.FromResult(true);

@@ -2,52 +2,42 @@
 	[
 		{
 			"Title": "The Shawshank Redemption",
-			"Year": 1994,
-			"Rating": 9.3
+			"Year": 1994
 		},
 		{
 			"Title": "The Godfather",
-			"Year": 1972,
-			"Rating": 9.2
+			"Year": 1972
 		},
 		{
 			"Title": "The Dark Knight",
-			"Year": 2008,
-			"Rating": 9.0
+			"Year": 2008
 		},
 		{
 			"Title": "The Godfather Part II",
-			"Year": 1974,
-			"Rating": 9.0
+			"Year": 1974
 		},
 		{
 			"Title": "12 Angry Men",
-			"Year": 1957,
-			"Rating": 9.0
+			"Year": 1957
 		},
 		{
 			"Title": "Schindler's List'",
-			"Year": 1993,
-			"Rating": 9.0
+			"Year": 1993
 		},
 		{
 			"Title": "The Lord of the Rings: The Return of the King",
-			"Year": 2003,
-			"Rating": 9.0
+			"Year": 2003
 		},
 		{
 			"Title": "Pulp Fiction",
-			"Year": 1994,
-			"Rating": 8.9
+			"Year": 1994
 		},
 		{
 			"Title": "The Lord of the Rings: The Fellowship of the Ring",
-			"Year": 1972,
-			"Rating": 8.8
+			"Year": 2001
 		},
 		{
-			"Title": "Il buono, il brutto, il cattivo",
-			"Year": 1966,
-			"Rating": 8.8
+			"Title": "The Good, the Bad and the Ugly",
+			"Year": 1966
 		}
 	]

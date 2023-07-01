@@ -2,14 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MediaNotes.Views.ItemsPage"
-             Title="{Binding Title}"
+             Title="Browse Movies"
              xmlns:local="clr-namespace:MediaNotes.ViewModels"  
              xmlns:model="clr-namespace:MediaNotes.Models"  
              x:Name="BrowseItemsPage">
-
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
-    </ContentPage.ToolbarItems>
     <!--
       x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
       https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
@@ -23,7 +19,8 @@
                     <StackLayout Padding="10" x:DataType="model:Movie_Item">
                         <Label Text="{Binding Title}" 
                             LineBreakMode="NoWrap" 
-                            Style="{DynamicResource ListItemTextStyle}" 
+                            TextColor="Black"
+                            FontAttributes = "Bold"
                             FontSize="16" />
                         <Label Text="{Binding Plot}" 
                             LineBreakMode="NoWrap"
