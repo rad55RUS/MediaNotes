@@ -49,6 +49,7 @@ namespace MediaNotes.Services
         /// <returns></returns>
         public async Task<bool> LoadItemsAsync()
         {
+            /*
             using (var stream = await FileSystem.OpenAppPackageFileAsync("Movie.json"))
             {
                 using (var reader = new StreamReader(stream))
@@ -58,9 +59,9 @@ namespace MediaNotes.Services
                     items.Add(JsonConvert.DeserializeObject<Movie_Item>(fileContents));
                 }
             }
+            */
 
-            /* Receiving IMDB Data
-             *
+
             List<Movie_Item> itemsShort;
 
             using (var stream = await FileSystem.OpenAppPackageFileAsync("Movies.json"))
@@ -105,8 +106,7 @@ namespace MediaNotes.Services
                     Debug.WriteLine(url + " response failed.");
                 }
             }
-            *
-            */
+
 
             for (int i = 0; i < items.Count; i++)
             {

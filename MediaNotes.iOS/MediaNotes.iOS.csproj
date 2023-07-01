@@ -143,4 +143,7 @@
       <Name>MediaNotes</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\icon_rating.png" />
+  </ItemGroup>
 </Project>

@@ -7,6 +7,7 @@ namespace MediaNotes.Models
     /// </summary>
     public class Movie_Item
     {
+        // Preloaded data
         // Not displayed data
         public string Id { get; set; }
         //
@@ -33,6 +34,14 @@ namespace MediaNotes.Models
 
         // Urls
         public string Poster { get; set; }
+        //
+        //
+
+        // Defined data
+        public string Year_Brackets
+        {
+            get => '(' + Year + ')';
+        }
         //
     }
 }
