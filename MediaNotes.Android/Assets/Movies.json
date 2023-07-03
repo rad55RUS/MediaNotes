@@ -2,42 +2,52 @@
 	[
 		{
 			"Title": "The Shawshank Redemption",
-			"Year": 1994
+			"Year": 1994,
+			"BigPoster": "https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/e26044e5-2d5a-4b38-a133-a776ad93366f/1920x"
 		},
 		{
 			"Title": "The Godfather",
-			"Year": 1972
+			"Year": 1972,
+			"BigPoster": "https://avatars.mds.yandex.net/get-kinopoisk-image/4774061/806387f7-f340-4d98-a1ef-d8940883f95e/1920x"
 		},
 		{
 			"Title": "The Dark Knight",
-			"Year": 2008
+			"Year": 2008,
+			"BigPoster": "https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/3029a799-c0a8-4b93-b135-b559632ed39b/1920x"
 		},
 		{
 			"Title": "The Godfather Part II",
-			"Year": 1974
+			"Year": 1974,
+			"BigPoster": "https://avatars.mds.yandex.net/get-kinopoisk-image/1777765/29a6a5ca-0107-414f-839d-a6b6361dbd85/1920x"
 		},
 		{
 			"Title": "12 Angry Men",
-			"Year": 1957
+			"Year": 1957,
+			"BigPoster": "https://avatars.mds.yandex.net/get-kinopoisk-image/1946459/198b7b87-c68b-4aa0-a36e-54e49534c2ee/1920x"
 		},
 		{
 			"Title": "Schindler's List'",
-			"Year": 1993
+			"Year": 1993,
+			"BigPoster": "https://avatars.mds.yandex.net/get-kinopoisk-image/1599028/c06deaf0-ea93-4890-8727-2c0b065a6f33/1920x"
 		},
 		{
 			"Title": "The Lord of the Rings: The Return of the King",
-			"Year": 2003
+			"Year": 2003,
+			"BigPoster": "https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/a89088b7-99cf-4c55-ad78-0adc10e61b87/1920x"
 		},
 		{
 			"Title": "Pulp Fiction",
-			"Year": 1994
+			"Year": 1994,
+			"BigPoster": "https://avatars.mds.yandex.net/get-kinopoisk-image/1600647/57848557-b670-40ea-8a07-fe234700c990/1920x"
 		},
 		{
 			"Title": "The Lord of the Rings: The Fellowship of the Ring",
-			"Year": 2001
+			"Year": 2001,
+			"BigPoster": "https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/4a7e0b70-5f46-46d2-b5b6-85b595e78fe5/1920x"
 		},
 		{
 			"Title": "The Good, the Bad and the Ugly",
-			"Year": 1966
+			"Year": 1966,
+			"BigPoster": "https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/49c18da1-b5c6-4f8a-a381-75c19a4e58dc/1920x"
 		}
 	]

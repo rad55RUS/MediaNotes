@@ -30,17 +30,6 @@ namespace MediaNotes.Services
         public MockDataStore()
         {
             Task.Run(() => this.LoadItemsAsync()).Wait();
-            /*
-            items = new List<Item>()
-            {
-                new Item { Id = Guid.NewGuid().ToString(), Text = "First item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Second item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Third item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Fourth item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Fifth item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Sixth item", Description="This is an item description." }
-            };
-            */
         }
 
         /// <summary>
@@ -49,6 +38,9 @@ namespace MediaNotes.Services
         /// <returns></returns>
         public async Task<bool> LoadItemsAsync()
         {
+            List<Movie_Item> itemsShort = new List<Movie_Item>();
+
+            #region Load only one movie
             /*
             using (var stream = await FileSystem.OpenAppPackageFileAsync("Movie.json"))
             {
@@ -60,10 +52,10 @@ namespace MediaNotes.Services
                 }
             }
             */
-
-
-            List<Movie_Item> itemsShort;
-
+            #endregion
+            
+            #region Load all movies
+            /**/
             using (var stream = await FileSystem.OpenAppPackageFileAsync("Movies.json"))
             {
                 using (var reader = new StreamReader(stream))
@@ -73,7 +65,7 @@ namespace MediaNotes.Services
                     itemsShort = JsonConvert.DeserializeObject<List<Movie_Item>>(fileContents);
                 }
             }
-
+            
             foreach (Movie_Item item in itemsShort)
             {
                 string url = "http://www.omdbapi.com/?apikey=4e73d28b&t=" + item.Title.Replace(' ', '+') + "&y=" + item.Year + "&plot=full";
@@ -101,21 +93,27 @@ namespace MediaNotes.Services
                         readStream.Close();
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     Debug.WriteLine(url + " response failed.");
                 }
             }
 
+            #endregion
 
             for (int i = 0; i < items.Count; i++)
             {
                 items[i].Id = i.ToString();
+                items[i].BoxOffice = items[i].BoxOffice.Replace(',', ' ');
+                if (itemsShort.Count != 0)
+                {
+                    items[i].BigPoster = itemsShort[i].BigPoster;
+                }
             }
 
             return await Task.FromResult(true);
         }
-
+        /**/
         #region IDataStore Realization
         public async Task<bool> AddItemAsync(Movie_Item item)
         {

@@ -20,11 +20,10 @@ namespace MediaNotes.ViewModels
         public ItemsViewModel()
         {
             Items = new ObservableCollection<Movie_Item>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-
             ItemTapped = new Command<Movie_Item>(OnItemSelected);
-
             AddItemCommand = new Command(OnAddItem);
+
+            Task.Run(() => this.ExecuteLoadItemsCommand().Wait());
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -33,11 +32,13 @@ namespace MediaNotes.ViewModels
 
             try
             {
-                Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
-                foreach (var item in items)
+                if (Items.Count == 0)
                 {
-                    Items.Add(item);
+                    var items = await DataStore.GetItemsAsync(true);
+                    foreach (var item in items)
+                    {
+                        Items.Add(item);
+                    }
                 }
             }
             catch (Exception ex)

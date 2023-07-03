@@ -34,6 +34,7 @@ namespace MediaNotes.Models
 
         // Urls
         public string Poster { get; set; }
+        public string BigPoster { get; set; }
         //
         //
 

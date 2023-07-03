@@ -1,13 +1,173 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MediaNotes.Views.ItemDetailPage"
-             Title="{Binding Title}">
-
-    <StackLayout Spacing="20" Padding="15">
-        <Label Text="{Binding MovieTitle}" FontSize="Title" FontAttributes="Bold" TextColor="Black"/>
-        <Label Text="Plot:" FontSize="Medium" />
-        <Label Text="{Binding MoviePlot}" FontSize="Small"/>
+             x:Class="MediaNotes.Views.ItemDetailPage">
+    <ScrollView>
+    <StackLayout Padding="15">
+        <StackLayout Spacing="20">
+            <Label 
+                Text="{Binding MovieTitle}" 
+                FontSize="Title"
+                FontAttributes="Bold" 
+                TextColor="Black"/>
+                <Image Source="{Binding MoviePoster}"/>
+                <Label 
+                Text="About the movie"
+                FontSize="Medium"
+                FontAttributes="Italic"
+                TextColor="Black"/>
+        </StackLayout>
+        <BoxView HeightRequest="0"/>
+        <StackLayout Orientation="Horizontal">
+            <Label 
+                Text="Year"
+                FontSize="16"
+                TextColor="DimGray"
+                WidthRequest="100"/>
+            <Label 
+                Text="{Binding MovieYear}"
+                FontSize="16"
+                TextColor="Black"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label 
+                Text="Rated"
+                FontSize="16"
+                TextColor="DimGray"
+                WidthRequest="100"/>
+            <Label 
+                Text="{Binding MovieRated}"
+                FontSize="16"
+                TextColor="Black"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label 
+                Text="Released"
+                FontSize="16"
+                TextColor="DimGray"
+                WidthRequest="100"/>
+            <Label 
+                Text="{Binding MovieReleased}"
+                FontSize="16"
+                TextColor="Black"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label 
+                Text="Country"
+                FontSize="16"
+                TextColor="DimGray"
+                WidthRequest="100"/>
+            <Label 
+                Text="{Binding MovieCountry}"
+                FontSize="16"
+                TextColor="Black"
+                MinimumWidthRequest="-100000"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label 
+                Text="Runtime"
+                FontSize="16"
+                TextColor="DimGray"
+                WidthRequest="100"/>
+            <Label 
+                Text="{Binding MovieRuntime}"
+                FontSize="16"
+                TextColor="Black"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label 
+                Text="Genre"
+                FontSize="16"
+                TextColor="DimGray"
+                WidthRequest="100"/>
+            <Label 
+                Text="{Binding MovieGenre}"
+                FontSize="16"
+                TextColor="Black"
+                MinimumWidthRequest="-100000"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label 
+                Text="Director"
+                FontSize="16"
+                TextColor="DimGray"
+                WidthRequest="100"/>
+            <Label 
+                Text="{Binding MovieDirector}"
+                FontSize="16"
+                TextColor="Black"
+                MinimumWidthRequest="-100000"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label 
+                Text="Writers"
+                FontSize="16"
+                TextColor="DimGray"
+                WidthRequest="100"/>
+            <Label 
+                Text="{Binding MovieWriter}"
+                FontSize="16"
+                TextColor="Black" 
+                MinimumWidthRequest="-100000"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label 
+                Text="Main actors"
+                FontSize="16"
+                TextColor="DimGray"
+                WidthRequest="100"/>
+            <Label 
+                Text="{Binding MovieActors}"
+                FontSize="16"
+                TextColor="Black"
+                MinimumWidthRequest="-100000"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label 
+                Text="Box Office"
+                FontSize="16"
+                TextColor="DimGray"
+                WidthRequest="100"/>
+            <Label 
+                Text="{Binding MovieBoxOffice}"
+                FontSize="16"
+                TextColor="Black"
+                MinimumWidthRequest="-100000"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label 
+                Text="IMDB Rating"
+                FontSize="16"
+                TextColor="DimGray"
+                WidthRequest="100"/>
+            <Label 
+                Text="{Binding MovieimdbRating}"
+                FontSize="16"
+                TextColor="Black"
+                MinimumWidthRequest="-100000"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label 
+                Text="Metascore"
+                FontSize="16"
+                TextColor="DimGray"
+                WidthRequest="100"/>
+            <Label 
+                Text="{Binding MovieMetascore}"
+                FontSize="16"
+                TextColor="Black"
+                MinimumWidthRequest="-100000"/>
+        </StackLayout>
+        <BoxView HeightRequest="5"/>
+        <Label 
+            Text="Plot"
+            FontSize="Medium"
+            FontAttributes="Italic"
+            TextColor="Black"/>
+        <Label 
+            Text="{Binding MoviePlot}"
+            FontSize="15"
+            TextColor="Black"/>
     </StackLayout>
-    
+    </ScrollView>
 </ContentPage>
