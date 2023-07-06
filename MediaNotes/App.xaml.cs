@@ -12,7 +12,9 @@ namespace MediaNotes
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            DependencyService.Register<Movies_DataStore>();
+            DependencyService.Register<Favourites_DataStore>();
+            DependencyService.Register<CurrentMovie_SingleItem>();
             MainPage = new AppShell();
         }
 

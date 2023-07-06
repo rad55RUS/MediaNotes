@@ -4,6 +4,13 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using Xamarin.Essentials;
+using System.Net.Http;
+using System.Diagnostics.Contracts;
+using System.Net;
+using System.Text;
+using Xamarin.Forms;
 //
 
 // Project libraries
@@ -13,21 +20,16 @@ using MediaNotes.Models;
 // Nuget libraries
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Diagnostics;
-using Xamarin.Essentials;
-using System.Net.Http;
-using System.Diagnostics.Contracts;
-using System.Net;
-using System.Text;
 //
 
 namespace MediaNotes.Services
 {
-    public class MockDataStore : IDataStore<Movie_Item>
+    public class Favourites_DataStore : IDataStore<Movie_Item>
     {
+        protected int page_amount = 1;
         protected List<Movie_Item> items = new List<Movie_Item>();
 
-        public MockDataStore()
+        public Favourites_DataStore()
         {
             Task.Run(() => this.LoadItemsAsync()).Wait();
         }
@@ -38,6 +40,8 @@ namespace MediaNotes.Services
         /// <returns></returns>
         public async Task<bool> LoadItemsAsync()
         {
+            int current_page = 0;
+            
             List<Movie_Item> itemsShort = new List<Movie_Item>();
 
             #region Load only one movie
@@ -48,7 +52,7 @@ namespace MediaNotes.Services
                 {
                     string fileContents = await reader.ReadToEndAsync();
 
-                    items.Add(JsonConvert.DeserializeObject<Movie_Item>(fileContents));
+                     items.Add(JsonConvert.DeserializeObject<Movie_Item>(fileContents));
                 }
             }
             */
@@ -56,18 +60,34 @@ namespace MediaNotes.Services
             
             #region Load all movies
             /**/
-            using (var stream = await FileSystem.OpenAppPackageFileAsync("Movies.json"))
+            using (var stream = await FileSystem.OpenAppPackageFileAsync("Favourites.json"))
             {
                 using (var reader = new StreamReader(stream))
                 {
                     string fileContents = await reader.ReadToEndAsync();
 
                     itemsShort = JsonConvert.DeserializeObject<List<Movie_Item>>(fileContents);
+                    page_amount = itemsShort.Count / 10;
+                    if (page_amount * 10 > itemsShort.Count)
+                    {
+                        page_amount--;
+                    }
+                    page_amount++;
                 }
             }
-            
-            foreach (Movie_Item item in itemsShort)
+
+            if (Xamarin.Forms.Application.Current.Properties.ContainsKey("page"))
             {
+                current_page = (int)(Xamarin.Forms.Application.Current.Properties["page"] as int?);
+                // do something with id
+            }
+            else
+            {
+                Xamarin.Forms.Application.Current.Properties["page"] = current_page;
+            }
+            for (int i = 10 * current_page; i < 10 * current_page + 10 && i < itemsShort.Count; i++)
+            {
+                Movie_Item item = itemsShort[i];
                 string url = "http://www.omdbapi.com/?apikey=4e73d28b&t=" + item.Title.Replace(' ', '+') + "&y=" + item.Year + "&plot=full";
 
                 try
@@ -98,7 +118,7 @@ namespace MediaNotes.Services
                     Debug.WriteLine(url + " response failed.");
                 }
             }
-
+            /**/
             #endregion
 
             for (int i = 0; i < items.Count; i++)

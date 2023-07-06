@@ -9,14 +9,14 @@ using Xamarin.Forms;
 
 namespace MediaNotes.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class FavouritesViewModel : BaseViewModel
     {
         // Fields
         private Movie_Item _selectedItem;
         //
 
         // Properties
-        public IDataStore<Movie_Item> DataStore => DependencyService.Get<Movies_DataStore>();
+        public IDataStore<Movie_Item> DataStore => DependencyService.Get<Favourites_DataStore>();
         public ObservableCollection<Movie_Item> Items { get; }
 
         //// Commands
@@ -24,7 +24,7 @@ namespace MediaNotes.ViewModels
         ////
         //
 
-        public ItemsViewModel()
+        public FavouritesViewModel()
         {
             Items = new ObservableCollection<Movie_Item>();
             ItemTapped = new Command<Movie_Item>(OnItemSelected);

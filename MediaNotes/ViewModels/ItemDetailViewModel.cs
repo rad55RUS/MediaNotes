@@ -1,4 +1,5 @@
 ﻿using MediaNotes.Models;
+using MediaNotes.Services;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -6,11 +7,9 @@ using Xamarin.Forms;
 
 namespace MediaNotes.ViewModels
 {
-    [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class ItemDetailViewModel : BaseViewModel
     {
         // Fields
-        private string itemId;
         private string movieTitle;
         private string moviePoster;
         private string movieYear;
@@ -111,47 +110,43 @@ namespace MediaNotes.ViewModels
             get => moviePlot;
             set => SetProperty(ref moviePlot, value);
         }
+        //
 
-        public string ItemId
+        // Constructors
+        public ItemDetailViewModel()
         {
-            get
-            {
-                return itemId;
-            }
-            set
-            {
-                itemId = value;
-                LoadItemId(value);
-            }
+            LoadMovie();
         }
         //
 
-        public async void LoadItemId(string itemId)
+        // Methods
+        public async void LoadMovie()
         {
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
-                Id = item.Id;
-                MovieTitle = item.Title + ' ' + item.Year_Brackets;
-                MoviePoster = item.BigPoster;
-                MovieYear = item.Year;
-                MovieRated = item.Rated;
-                MovieReleased = item.Released;
-                MovieCountry = item.Country;
-                MovieRuntime = item.Runtime;
-                MovieGenre = item.Genre;
-                MovieDirector = item.Director;
-                MovieWriter = item.Writer;
-                MovieActors = item.Actors;
-                MovieBoxOffice = item.BoxOffice;
-                MovieimdbRating = item.imdbRating;
-                MovieMetascore = item.Metascore;
-                MoviePlot = item.Plot;
+                var movie = await CurrentMovie.GetInstanceAsync();
+                Id = movie.Id;
+                MovieTitle = movie.Title + ' ' + movie.Year_Brackets;
+                MoviePoster = movie.BigPoster;
+                MovieYear = movie.Year;
+                MovieRated = movie.Rated;
+                MovieReleased = movie.Released;
+                MovieCountry = movie.Country;
+                MovieRuntime = movie.Runtime;
+                MovieGenre = movie.Genre;
+                MovieDirector = movie.Director;
+                MovieWriter = movie.Writer;
+                MovieActors = movie.Actors;
+                MovieBoxOffice = movie.BoxOffice;
+                MovieimdbRating = movie.imdbRating;
+                MovieMetascore = movie.Metascore;
+                MoviePlot = movie.Plot;
             }
             catch (Exception)
             {
                 Debug.WriteLine("Failed to Load Item");
             }
         }
+        //
     }
 }
