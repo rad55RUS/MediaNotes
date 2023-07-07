@@ -11,23 +11,21 @@ namespace MediaNotes.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        // Fields
-        private Movie_Item _selectedItem;
-        //
-
         // Properties
         public IDataStore<Movie_Item> DataStore => DependencyService.Get<Movies_DataStore>();
         public ObservableCollection<Movie_Item> Items { get; }
 
         //// Commands
-        public Command<Movie_Item> ItemTapped { get; }
+        public Command<Movie_Item> ItemTappedCommand { get; }
+        public Command<Movie_Item> ItemFavouriteCommand { get; }
         ////
         //
 
         public ItemsViewModel()
         {
             Items = new ObservableCollection<Movie_Item>();
-            ItemTapped = new Command<Movie_Item>(OnItemSelected);
+            ItemTappedCommand = new Command<Movie_Item>(OnItemSelected);
+            ItemFavouriteCommand = new Command<Movie_Item>(OnItemFavourite);
 
             Task.Run(() => this.ExecuteLoadItemsCommand().Wait());
         }
@@ -60,17 +58,6 @@ namespace MediaNotes.ViewModels
         public void OnAppearing()
         {
             IsBusy = true;
-            SelectedItem = null;
-        }
-
-        public Movie_Item SelectedItem
-        {
-            get => _selectedItem;
-            set
-            {
-                SetProperty(ref _selectedItem, value);
-                OnItemSelected(value);
-            }
         }
 
         async void OnItemSelected(Movie_Item item)
@@ -81,6 +68,18 @@ namespace MediaNotes.ViewModels
             await CurrentMovie.SetInstanceAsync(item);
 
             await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}");
+        }
+
+        async void OnItemFavourite(Movie_Item item)
+        {
+            if (item == null)
+                return;
+
+            item.IsFavourite = !item.IsFavourite;
+            if (item.IsFavourite)
+                item.FavouriteIcon = "icon_added.png";
+            else
+                item.FavouriteIcon = "icon_add.png";
         }
     }
 }

@@ -57,9 +57,9 @@ namespace MediaNotes.Services
             }
             */
             #endregion
-            
+
             #region Load all movies
-            /**/
+            
             using (var stream = await FileSystem.OpenAppPackageFileAsync("Movies.json"))
             {
                 using (var reader = new StreamReader(stream))
@@ -118,8 +118,19 @@ namespace MediaNotes.Services
                     Debug.WriteLine(url + " response failed.");
                 }
             }
-            /**/
             #endregion
+
+            List<Movie_Item> favouritedItems;
+
+            using (var stream = await FileSystem.OpenAppPackageFileAsync("Favourites.json"))
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    string fileContents = await reader.ReadToEndAsync();
+
+                    favouritedItems = JsonConvert.DeserializeObject<List<Movie_Item>>(fileContents);
+                }
+            }
 
             for (int i = 0; i < items.Count; i++)
             {
@@ -129,11 +140,18 @@ namespace MediaNotes.Services
                 {
                     items[i].BigPoster = itemsShort[i].BigPoster;
                 }
+                foreach (Movie_Item favouritedItem in favouritedItems)
+                {
+                    if (items[i].Title == favouritedItem.Title && items[i].Year == favouritedItem.Year)
+                    {
+                        items[i].IsFavourite = true;
+                    }
+                }
             }
 
             return await Task.FromResult(true);
         }
-        /**/
+        
         #region IDataStore Realization
         public async Task<bool> AddItemAsync(Movie_Item item)
         {
