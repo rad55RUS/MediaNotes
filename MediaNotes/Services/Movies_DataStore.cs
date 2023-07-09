@@ -45,7 +45,7 @@ namespace MediaNotes.Services
             List<Movie_Item> itemsShort = new List<Movie_Item>();
 
             #region Load only one movie
-            /*
+            /**/
             using (var stream = await FileSystem.OpenAppPackageFileAsync("Movie.json"))
             {
                 using (var reader = new StreamReader(stream))
@@ -55,11 +55,11 @@ namespace MediaNotes.Services
                     items.Add(JsonConvert.DeserializeObject<Movie_Item>(fileContents));
                 }
             }
-            */
+            /**/
             #endregion
 
             #region Load all movies
-            
+            /*
             using (var stream = await FileSystem.OpenAppPackageFileAsync("Movies.json"))
             {
                 using (var reader = new StreamReader(stream))
@@ -118,19 +118,10 @@ namespace MediaNotes.Services
                     Debug.WriteLine(url + " response failed.");
                 }
             }
+            */
             #endregion
 
-            List<Movie_Item> favouritedItems;
-
-            using (var stream = await FileSystem.OpenAppPackageFileAsync("Favourites.json"))
-            {
-                using (var reader = new StreamReader(stream))
-                {
-                    string fileContents = await reader.ReadToEndAsync();
-
-                    favouritedItems = JsonConvert.DeserializeObject<List<Movie_Item>>(fileContents);
-                }
-            }
+            List<Movie_Item> favouritedItems = new List<Movie_Item>(MediaNotes_Preferences.Favourites_List);
 
             for (int i = 0; i < items.Count; i++)
             {

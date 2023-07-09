@@ -1,11 +1,15 @@
 ﻿using MediaNotes.Models;
 using MediaNotes.Services;
 using MediaNotes.Views;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MediaNotes.ViewModels
 {
@@ -70,16 +74,32 @@ namespace MediaNotes.ViewModels
             await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}");
         }
 
-        async void OnItemFavourite(Movie_Item item)
+        void OnItemFavourite(Movie_Item item)
         {
             if (item == null)
                 return;
 
             item.IsFavourite = !item.IsFavourite;
             if (item.IsFavourite)
+            {
+                List<Movie_Item> Favourites = new List<Movie_Item>(MediaNotes_Preferences.Favourites_List);
+
+                Favourites.Add(item);
+
+                MediaNotes_Preferences.Favourites_List = Favourites;
+
                 item.FavouriteIcon = "icon_added.png";
+            }
             else
+            {
+                List<Movie_Item> Favourites = new List<Movie_Item>(MediaNotes_Preferences.Favourites_List);
+
+                Favourites.Remove(item);
+
+                MediaNotes_Preferences.Favourites_List = Favourites;
+
                 item.FavouriteIcon = "icon_add.png";
+            }
         }
     }
 }
