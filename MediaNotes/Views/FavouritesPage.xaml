@@ -2,25 +2,26 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MediaNotes.Views.FavouritesPage"
-             Title="Browse Movies"
+             Title="Favourites"
              xmlns:local="clr-namespace:MediaNotes.ViewModels"  
-             xmlns:model="clr-namespace:MediaNotes.Models"  
+             xmlns:model="clr-namespace:MediaNotes.Models"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Name="BrowseFavouritesPage">
-    <!--
-      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
-      https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
-    -->
-
-        <CollectionView x:Name="FavouritesListView"
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior
+                EventName="Appearing"
+                Command="{Binding OnAppearing_Command}" />
+    </ContentPage.Behaviors>
+    <CollectionView x:Name="FavouritesListView"
             ItemsSource="{Binding Items}"
             SelectionMode="None">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout Padding="5" Margin="-5" x:DataType="model:Movie_Item">
-                        <BoxView Color="White" HeightRequest="0.1" Margin="1" Opacity="0"/>
-                        <StackLayout Orientation="Horizontal" Padding="5" Margin="-5">
-                            <Image Source="{Binding Poster}" Scale="1.4" Margin="8" WidthRequest="50"/>
-                            <StackLayout Orientation="Vertical" Padding="0" Margin="2">
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <StackLayout Padding="5" Margin="-5" x:DataType="model:Movie_Item">
+                    <BoxView Color="White" HeightRequest="0.1" Margin="1" Opacity="0"/>
+                    <StackLayout Orientation="Horizontal" Padding="5" Margin="-5">
+                        <Image Source="{Binding Poster}" Scale="1.4" Margin="8" WidthRequest="50"/>
+                        <StackLayout Orientation="Vertical" Padding="0" Margin="2" Spacing="0">
                             <StackLayout Orientation="Horizontal" Padding="0">
                                 <Label Text="{Binding Title}"
                                     LineBreakMode="NoWrap"
@@ -30,7 +31,7 @@
                                     VerticalTextAlignment="Center"/>
                             </StackLayout>
                             <StackLayout Orientation="Horizontal">
-                                <StackLayout Orientation="Horizontal" WidthRequest="240" Padding="0">
+                                <StackLayout Orientation="Horizontal" WidthRequest="210" Padding="0">
                                     <Label Text="{Binding Year}"
                                         LineBreakMode="NoWrap"
                                         TextColor="Black"
@@ -54,27 +55,35 @@
                                     TextColor="Black"
                                     FontAttributes = "Bold"
                                     FontSize="14"
-                                    VerticalTextAlignment="Center"/>
+                                    VerticalTextAlignment="Center"
+                                    WidthRequest="30"/>
+                                <Button
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:FavouritesViewModel}}, Path=ItemFavouriteCommand}"	
+                                    CommandParameter="{Binding .}"
+                                    ImageSource="{Binding FavouriteIcon}"
+                                    BackgroundColor="Transparent" 
+                                    Scale="0.4"
+                                    WidthRequest="20"
+                                    HeightRequest="30"/>
                             </StackLayout>
-                                <Label Text="{Binding Plot}" 
+                            <Label Text="{Binding Plot}" 
                                     LineBreakMode="TailTruncation"
                                     TextColor="DimGray"
                                     MaxLines="3"
                                     Style="{DynamicResource ListItemDetailTextStyle}"
                                     FontSize="12"/>
-                            </StackLayout>
                         </StackLayout>
-                            <BoxView Color="Gray" HeightRequest="0.5" Margin="10" Opacity="0.5"/>
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer 
-                                NumberOfTapsRequired="1"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:FavouritesViewModel}}, Path=ItemTapped}"		
-                                CommandParameter="{Binding .}">
-                            </TapGestureRecognizer>
-                        </StackLayout.GestureRecognizers>
                     </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-
+                    <BoxView Color="Gray" HeightRequest="0.5" Margin="10" Opacity="0.5"/>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:FavouritesViewModel}}, Path=ItemTappedCommand}"		
+                                CommandParameter="{Binding .}">
+                        </TapGestureRecognizer>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
 </ContentPage>
