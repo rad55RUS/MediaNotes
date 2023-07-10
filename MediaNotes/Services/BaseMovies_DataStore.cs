@@ -65,12 +65,7 @@ namespace MediaNotes.Services
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> UpdateItemsAsync()
-        {
-            items.Clear();
-            await LoadItemsAsync();
-            return await Task.FromResult(true);
-        }
+        public abstract Task<bool> UpdateItemsAsync();
 
         public async Task<Movie_Item> GetItemAsync(string id)
         {

@@ -135,5 +135,37 @@ namespace MediaNotes.Services
 
             return await Task.FromResult(true);
         }
+
+        public override async Task<bool> UpdateItemsAsync()
+        {
+            List<Movie_Item> favouritedItems = new List<Movie_Item>(MediaNotes_Preferences.Favourites_List);
+
+            if (favouritedItems.Count == 0)
+            {
+                for (int i = 0; i < items.Count; i++)
+                {
+                    items[i].IsFavourite = false;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < items.Count; i++)
+                {
+                    if (favouritedItems.Count == 0)
+                    {
+
+                    }
+                    foreach (Movie_Item favouritedItem in favouritedItems)
+                    {
+                        if (items[i].Title == favouritedItem.Title && items[i].Year == favouritedItem.Year)
+                        {
+                            items[i].IsFavourite = true;
+                        }
+                    }
+                }
+            }
+
+            return await Task.FromResult(true);
+        }
     }
 }

@@ -12,31 +12,30 @@ namespace MediaNotes.ViewModels
     public class ItemsViewModel : BaseViewModel_Movies
     {
         // Properties
-        public IDataStore<Movie_Item> MoviesDataStore => DependencyService.Get<Movies_DataStore>();
+        public Command OnAppearing_Command { get; }
         //
 
         // Constructors
         public ItemsViewModel()
         {
-            Task.Run(() => this.ExecuteLoadItemsCommand().Wait());
+            OnAppearing_Command = new Command(ExecuteLoadItemsCommand);
         }
         //
 
         // Methods
-        async Task ExecuteLoadItemsCommand()
+        async void ExecuteLoadItemsCommand()
         {
             IsBusy = true;
 
             try
             {
-                if (Items.Count == 0)
+                Items.Clear();
+                var items = await MoviesDataStore.GetItemsAsync(true);
+                foreach (var item in items)
                 {
-                    var items = await MoviesDataStore.GetItemsAsync(true);
-                    foreach (var item in items)
-                    {
-                        Items.Add(item);
-                    }
+                    Items.Add(item);
                 }
+
             }
             catch (Exception ex)
             {

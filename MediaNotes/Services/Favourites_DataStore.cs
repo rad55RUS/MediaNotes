@@ -60,5 +60,12 @@ namespace MediaNotes.Services
 
             return await Task.FromResult(true);
         }
+
+        public override async Task<bool> UpdateItemsAsync()
+        {
+            items.Clear();
+            await LoadItemsAsync();
+            return await Task.FromResult(true);
+        }
     }
 }

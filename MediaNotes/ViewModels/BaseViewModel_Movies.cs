@@ -16,6 +16,7 @@ namespace MediaNotes.ViewModels
     {
         // Fields
         public IDataStore<Movie_Item> FavouritesDataStore => DependencyService.Get<Favourites_DataStore>();
+        public IDataStore<Movie_Item> MoviesDataStore => DependencyService.Get<Movies_DataStore>();
         //
 
         // Properties
@@ -84,7 +85,9 @@ namespace MediaNotes.ViewModels
 
                 item.FavouriteIcon = "icon_add.png";
             }
+
             await FavouritesDataStore.UpdateItemsAsync();
+            await MoviesDataStore.UpdateItemsAsync();
         }
         //
     }

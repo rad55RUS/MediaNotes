@@ -5,12 +5,11 @@
              Title="Browse Movies"
              xmlns:local="clr-namespace:MediaNotes.ViewModels"  
              xmlns:model="clr-namespace:MediaNotes.Models"  
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Name="BrowseItemsPage">
-    <!--
-      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
-      https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
-    -->
-
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior EventName="Appearing" Command="{Binding OnAppearing_Command}" />
+    </ContentPage.Behaviors>
     <CollectionView x:Name="ItemsListView"
             ItemsSource="{Binding Items}"
             SelectionMode="None">
@@ -30,7 +29,7 @@
                                     VerticalTextAlignment="Center"/>
                             </StackLayout>
                             <StackLayout Orientation="Horizontal">
-                                <StackLayout Orientation="Horizontal" WidthRequest="210" Padding="0">
+                                <StackLayout Orientation="Horizontal" WidthRequest="205" Padding="0">
                                     <Label Text="{Binding Year}"
                                         LineBreakMode="NoWrap"
                                         TextColor="Black"
@@ -55,15 +54,15 @@
                                     FontAttributes = "Bold"
                                     FontSize="14"
                                     VerticalTextAlignment="Center"
-                                    WidthRequest="30"/>
+                                    WidthRequest="35"/>
                                 <Button
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemFavouriteCommand}"	
                                     CommandParameter="{Binding .}"
                                     ImageSource="{Binding FavouriteIcon}"
                                     BackgroundColor="Transparent" 
-                                    Scale="0.4"
-                                    WidthRequest="20"
-                                    HeightRequest="30"/>
+                                    Scale="0.5"
+                                    TranslationY="-8"
+                                    Margin="-35"/>
                             </StackLayout>
                             <Label Text="{Binding Plot}" 
                                     LineBreakMode="TailTruncation"
