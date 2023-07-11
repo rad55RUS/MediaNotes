@@ -46,6 +46,11 @@ namespace MediaNotes.Models
         public string BigPoster { get; set; }
         ////
 
+        //// Constants
+        public static string AddIcon { get => "icon_add.png"; }
+        public static string AddedIcon { get => "icon_added.png"; }
+        ////
+
         //// Defined data
         public string Year_Brackets
         {
@@ -73,11 +78,11 @@ namespace MediaNotes.Models
             {
                 if (!IsFavourite)
                 {
-                    return "icon_add.png";
+                    return AddIcon;
                 }
                 else
                 {
-                    return "icon_added.png";
+                    return AddedIcon;
                 }
             }
             set

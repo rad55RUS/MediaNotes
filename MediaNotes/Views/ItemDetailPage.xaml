@@ -1,20 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MediaNotes.Views.ItemDetailPage">
+             x:Class="MediaNotes.Views.ItemDetailPage"
+             Shell.NavBarIsVisible="True">
     <ScrollView>
     <StackLayout Padding="15">
         <StackLayout Spacing="20">
             <Label 
                 Text="{Binding MovieTitle}" 
-                FontSize="Title"
+                FontSize="22"
                 FontAttributes="Bold" 
                 TextColor="Black"/>
                 <Image Source="{Binding MoviePoster}"/>
                 <Label 
                 Text="About the movie"
                 FontSize="Medium"
-                FontAttributes="Italic"
+                FontAttributes="Bold,Italic"
                 TextColor="Black"/>
         </StackLayout>
         <BoxView HeightRequest="0"/>
@@ -162,7 +163,7 @@
         <Label 
             Text="Plot"
             FontSize="Medium"
-            FontAttributes="Italic"
+            FontAttributes="Bold,Italic" 
             TextColor="Black"/>
         <Label 
             Text="{Binding MoviePlot}"

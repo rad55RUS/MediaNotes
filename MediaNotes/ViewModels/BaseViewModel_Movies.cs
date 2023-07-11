@@ -65,7 +65,7 @@ namespace MediaNotes.ViewModels
 
                 MediaNotes_Preferences.Favourites_List = Favourites;
 
-                item.FavouriteIcon = "icon_added.png";
+                item.FavouriteIcon = Movie_Item.AddedIcon;
             }
             else
             {
@@ -83,7 +83,7 @@ namespace MediaNotes.ViewModels
 
                 MediaNotes_Preferences.Favourites_List = Favourites;
 
-                item.FavouriteIcon = "icon_add.png";
+                item.FavouriteIcon = Movie_Item.AddIcon;
             }
 
             await FavouritesDataStore.UpdateItemsAsync();

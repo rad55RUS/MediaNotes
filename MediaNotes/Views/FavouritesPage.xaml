@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:MediaNotes.ViewModels"  
              xmlns:model="clr-namespace:MediaNotes.Models"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-             x:Name="BrowseFavouritesPage">
+             x:Name="BrowseFavouritesPage"
+             Shell.NavBarIsVisible="false">
     <ContentPage.Behaviors>
         <xct:EventToCommandBehavior EventName="Appearing" Command="{Binding OnAppearing_Command}" />
     </ContentPage.Behaviors>
@@ -15,70 +16,75 @@
             SelectionMode="None">
         <CollectionView.ItemTemplate>
             <DataTemplate>
-                <StackLayout Padding="5" Margin="-5" x:DataType="model:Movie_Item">
+                <StackLayout Padding="2" Spacing="5" x:DataType="model:Movie_Item">
                     <BoxView Color="White" HeightRequest="0.1" Margin="1" Opacity="0"/>
-                    <StackLayout Orientation="Horizontal" Padding="5" Margin="-5">
-                        <Image Source="{Binding Poster}" Scale="1.4" Margin="8" WidthRequest="50"/>
+                    <StackLayout Orientation="Horizontal" Spacing="5">
+                        <Image Source="{Binding Poster}" Scale="1" Margin="0" WidthRequest="67"/>
                         <Button
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:FavouritesViewModel}}, Path=ItemFavouriteCommand}"	
-                                    CommandParameter="{Binding .}"
-                                    ImageSource="{Binding FavouriteIcon}"
-                                    BackgroundColor="Transparent"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:FavouritesViewModel}}, Path=ItemFavouriteCommand}"	
+                            CommandParameter="{Binding .}"
+                            ImageSource="{Binding FavouriteIcon}"
+                            BackgroundColor="Transparent"
                             TranslationX="-55"
                             TranslationY="-35"
                             Margin="-47"
-                            Opacity="0.85"
+                            Opacity="0.96"
                             Scale="0.5"/>
-                        <StackLayout Orientation="Vertical" Padding="0" Margin="2" Spacing="2" TranslationY="0">
-                            <StackLayout Orientation="Horizontal" Padding="0">
-                                <Label Text="{Binding Title}"
-                                    LineBreakMode="NoWrap"
-                                    TextColor="Black"
-                                    FontAttributes = "Bold"
-                                    FontSize="14"
-                                    VerticalTextAlignment="Center"/>
-                            </StackLayout>
+                        <Image Source="icon_ratingbackground.png" WidthRequest="35" Margin="-19" VerticalOptions="Center" TranslationX="-53" TranslationY="42"/>
+                        <Label Text="{Binding imdbRating}"
+                                LineBreakMode="NoWrap"
+                                TextColor="DarkOrange"
+                                FontAttributes = "Bold, Italic"
+                                FontSize="16"
+                                VerticalTextAlignment="Center"
+                                WidthRequest="90"
+                                TranslationX="-59"
+                                Margin="-10"
+                                TranslationY="41"/>
+                        <StackLayout Orientation="Vertical" Padding="0" Margin="0" Spacing="0" WidthRequest="1000" TranslationX="-15">
                             <StackLayout Orientation="Horizontal">
-                                <StackLayout Orientation="Horizontal" WidthRequest="240" Padding="0">
-                                    <Label Text="{Binding Year}"
-                                        LineBreakMode="NoWrap"
-                                        TextColor="Black"
-                                        FontSize="13"
-                                        VerticalTextAlignment="Center"/>
-                                    <Label Text="|"
-                                        LineBreakMode="NoWrap"
-                                        TextColor="Black"
-                                        FontAttributes = "Bold"
-                                        FontSize="13"
-                                        VerticalTextAlignment="Center"/>
-                                    <Label Text="{Binding Runtime}"
-                                        LineBreakMode="NoWrap"
-                                        TextColor="Black"
-                                        FontSize="13"
-                                        VerticalTextAlignment="Center"/>
-                                    <Label Text="|"
-                                        LineBreakMode="NoWrap"
-                                        TextColor="Black"
-                                        FontAttributes = "Bold"
-                                        FontSize="13"
-                                        VerticalTextAlignment="Center"/>
-                                    <Label Text="{Binding Director}"
-                                    LineBreakMode="NoWrap"
-                                    TextColor="Black"
-                                    FontSize="13"
-                                    VerticalTextAlignment="Center"/>
+                                <StackLayout Orientation="Vertical" Spacing="4">
+                                    <StackLayout Orientation="Horizontal" Padding="0">
+                                        <Label Text="{Binding Title}"
+                                            LineBreakMode="WordWrap"
+                                            TextColor="Black"
+                                            FontAttributes = "Bold"
+                                            FontSize="14"
+                                            VerticalTextAlignment="Center"
+                                            WidthRequest="250"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" HeightRequest="22">
+                                        <StackLayout Orientation="Horizontal" WidthRequest="245" Padding="0">
+                                            <Label Text="{Binding Year}"
+                                                LineBreakMode="NoWrap"
+                                                TextColor="Black"
+                                                FontSize="13"
+                                                VerticalTextAlignment="Center"/>
+                                            <Label Text="|"
+                                                LineBreakMode="NoWrap"
+                                                TextColor="Black"
+                                                FontAttributes = "Bold"
+                                                FontSize="13"
+                                                VerticalTextAlignment="Center"/>
+                                            <Label Text="{Binding Runtime}"
+                                                LineBreakMode="NoWrap"
+                                                TextColor="Black"
+                                                FontSize="13"
+                                                VerticalTextAlignment="Center"/>
+                                            <Label Text="|"
+                                                LineBreakMode="NoWrap"
+                                                TextColor="Black"
+                                                FontAttributes = "Bold"
+                                                FontSize="13"
+                                                VerticalTextAlignment="Center"/>
+                                            <Label Text="{Binding Director}"
+                                                LineBreakMode="NoWrap"
+                                                TextColor="Black"
+                                                FontSize="13"
+                                                VerticalTextAlignment="Center"/>
+                                        </StackLayout>
+                                    </StackLayout>
                                 </StackLayout>
-                                <Image Source="icon_rating.png" Scale="0.8" VerticalOptions="Center"/>
-                                <Label Text="{Binding imdbRating}"
-                                    LineBreakMode="NoWrap"
-                                    TextColor="Black"
-                                    FontAttributes = "Bold"
-                                    FontSize="14"
-                                    VerticalTextAlignment="Center"
-                                    WidthRequest="30"/>
-                                
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal" WidthRequest="210" Padding="0">
                             </StackLayout>
                             <Label Text="{Binding Plot}" 
                                     LineBreakMode="TailTruncation"
