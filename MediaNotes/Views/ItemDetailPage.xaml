@@ -2,173 +2,176 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MediaNotes.Views.ItemDetailPage"
+             xmlns:localization="clr-namespace:MediaNotes.Localization"
              Shell.NavBarIsVisible="True">
-    <ScrollView>
-    <StackLayout Padding="15">
-        <StackLayout Spacing="20">
-            <Label 
+    <Grid>
+        <ScrollView>
+            <StackLayout Padding="15">
+                <StackLayout Spacing="20">
+                    <Label 
                 Text="{Binding MovieTitle}" 
                 FontSize="22"
                 FontAttributes="Bold" 
                 TextColor="Black"/>
-                <Image Source="{Binding MoviePoster}"/>
-                <Label 
-                Text="About the movie"
+                    <Image Source="{Binding MoviePoster}"/>
+                    <Label 
+                Text="{x:Static localization:Localization.AboutTheMovie_Locale}"
                 FontSize="Medium"
                 FontAttributes="Bold,Italic"
                 TextColor="Black"/>
-        </StackLayout>
-        <BoxView HeightRequest="0"/>
-        <StackLayout Orientation="Horizontal">
-            <Label 
-                Text="Year"
+                </StackLayout>
+                <BoxView HeightRequest="0"/>
+                <StackLayout Orientation="Horizontal">
+                    <Label 
+                Text="{x:Static localization:Localization.Year_Locale}"
                 FontSize="16"
                 TextColor="DimGray"
                 WidthRequest="100"/>
-            <Label 
+                    <Label 
                 Text="{Binding MovieYear}"
                 FontSize="16"
                 TextColor="Black"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label 
-                Text="Rated"
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label 
+                Text="{x:Static localization:Localization.Rated_Locale}"
                 FontSize="16"
                 TextColor="DimGray"
                 WidthRequest="100"/>
-            <Label 
+                    <Label 
                 Text="{Binding MovieRated}"
                 FontSize="16"
                 TextColor="Black"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label 
-                Text="Released"
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label 
+                Text="{x:Static localization:Localization.Released_Locale}"
                 FontSize="16"
                 TextColor="DimGray"
                 WidthRequest="100"/>
-            <Label 
+                    <Label 
                 Text="{Binding MovieReleased}"
                 FontSize="16"
                 TextColor="Black"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label 
-                Text="Country"
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label 
+                Text="{x:Static localization:Localization.Country_Locale}"
                 FontSize="16"
                 TextColor="DimGray"
                 WidthRequest="100"/>
-            <Label 
+                    <Label 
                 Text="{Binding MovieCountry}"
                 FontSize="16"
                 TextColor="Black"
                 MinimumWidthRequest="-100000"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label 
-                Text="Runtime"
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label 
+                Text="{x:Static localization:Localization.Runtime_Locale}"
                 FontSize="16"
                 TextColor="DimGray"
                 WidthRequest="100"/>
-            <Label 
+                    <Label 
                 Text="{Binding MovieRuntime}"
                 FontSize="16"
                 TextColor="Black"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label 
-                Text="Genre"
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label 
+                Text="{x:Static localization:Localization.Genre_Locale}"
                 FontSize="16"
                 TextColor="DimGray"
                 WidthRequest="100"/>
-            <Label 
+                    <Label 
                 Text="{Binding MovieGenre}"
                 FontSize="16"
                 TextColor="Black"
                 MinimumWidthRequest="-100000"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label 
-                Text="Director"
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label 
+                Text="{x:Static localization:Localization.Director_Locale}"
                 FontSize="16"
                 TextColor="DimGray"
                 WidthRequest="100"/>
-            <Label 
+                    <Label 
                 Text="{Binding MovieDirector}"
                 FontSize="16"
                 TextColor="Black"
                 MinimumWidthRequest="-100000"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label 
-                Text="Writers"
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label 
+                Text="{x:Static localization:Localization.Writers_Locale}"
                 FontSize="16"
                 TextColor="DimGray"
                 WidthRequest="100"/>
-            <Label 
+                    <Label 
                 Text="{Binding MovieWriter}"
                 FontSize="16"
                 TextColor="Black" 
                 MinimumWidthRequest="-100000"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label 
-                Text="Main actors"
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label 
+                Text="{x:Static localization:Localization.MainActors_Locale}"
                 FontSize="16"
                 TextColor="DimGray"
                 WidthRequest="100"/>
-            <Label 
+                    <Label
                 Text="{Binding MovieActors}"
                 FontSize="16"
                 TextColor="Black"
                 MinimumWidthRequest="-100000"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label 
-                Text="Box Office"
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label 
+                Text="{x:Static localization:Localization.BoxOffice_Locale}"
                 FontSize="16"
                 TextColor="DimGray"
                 WidthRequest="100"/>
-            <Label 
+                    <Label 
                 Text="{Binding MovieBoxOffice}"
                 FontSize="16"
                 TextColor="Black"
                 MinimumWidthRequest="-100000"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label 
-                Text="IMDB Rating"
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label 
+                Text="{x:Static localization:Localization.IMDbRating_Locale}"
                 FontSize="16"
                 TextColor="DimGray"
                 WidthRequest="100"/>
-            <Label 
+                    <Label 
                 Text="{Binding MovieimdbRating}"
                 FontSize="16"
                 TextColor="Black"
                 MinimumWidthRequest="-100000"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label 
-                Text="Metascore"
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label 
+                Text="{x:Static localization:Localization.Metascore_Locale}"
                 FontSize="16"
                 TextColor="DimGray"
                 WidthRequest="100"/>
-            <Label 
+                    <Label 
                 Text="{Binding MovieMetascore}"
                 FontSize="16"
                 TextColor="Black"
                 MinimumWidthRequest="-100000"/>
-        </StackLayout>
-        <BoxView HeightRequest="5"/>
-        <Label 
-            Text="Plot"
+                </StackLayout>
+                <BoxView HeightRequest="5"/>
+                <Label 
+            Text="{x:Static localization:Localization.Plot_Locale}"
             FontSize="Medium"
             FontAttributes="Bold,Italic" 
             TextColor="Black"/>
-        <Label 
+                <Label 
             Text="{Binding MoviePlot}"
             FontSize="15"
             TextColor="Black"/>
-    </StackLayout>
-    </ScrollView>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

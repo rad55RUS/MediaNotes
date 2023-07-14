@@ -13,6 +13,8 @@ namespace MediaNotes.Models
         // Fields
         private bool isFavourite;
         private string favouriteIcon;
+        private string runtime;
+
         //
 
         // Properties
@@ -30,7 +32,7 @@ namespace MediaNotes.Models
         public string Rated { get; set; }
         public string Released { get; set; }
         public string Country { get; set; }
-        public string Runtime { get; set; }
+        public string Runtime { get => runtime.Replace("min", Localization.Localization.MinuteShort_Locale); set => runtime = value; }
         public string Genre { get; set; }
         public string Director { get; set; }
         public string Writer { get; set; }

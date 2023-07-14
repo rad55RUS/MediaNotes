@@ -20,6 +20,8 @@ using MediaNotes.Models;
 // Nuget libraries
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Threading;
+using System.Globalization;
 //
 
 namespace MediaNotes.Services
@@ -34,11 +36,11 @@ namespace MediaNotes.Services
         public override async Task<bool> LoadItemsAsync()
         {
             int current_page = 0;
-            
+
             List<Movie_Item> itemsShort = new List<Movie_Item>();
 
             #region Load only one movie
-            /*
+            /**/
             using (var stream = await FileSystem.OpenAppPackageFileAsync("Movie.json"))
             {
                 using (var reader = new StreamReader(stream))
@@ -48,11 +50,11 @@ namespace MediaNotes.Services
                     items.Add(JsonConvert.DeserializeObject<Movie_Item>(fileContents));
                 }
             }
-            */
+            /**/
             #endregion
 
             #region Load all movies
-            /**/
+            /*
             using (var stream = await FileSystem.OpenAppPackageFileAsync("Movies.json"))
             {
                 using (var reader = new StreamReader(stream))
@@ -81,37 +83,10 @@ namespace MediaNotes.Services
             for (int i = 10 * current_page; i < 10 * current_page + 10 && i < itemsShort.Count; i++)
             {
                 Movie_Item item = itemsShort[i];
-                string url = "http://www.omdbapi.com/?apikey=4e73d28b&t=" + item.Title.Replace(' ', '+') + "&y=" + item.Year + "&plot=full";
 
-                try
-                {
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                    if (response.StatusCode == HttpStatusCode.OK)
-                    {
-                        Stream receiveStream = response.GetResponseStream();
-                        StreamReader readStream = null;
-                        if (response.CharacterSet == null)
-                        {
-                            readStream = new StreamReader(receiveStream);
-                        }
-                        else
-                        {
-                            readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
-                        }
-                        string data = readStream.ReadToEnd();
-                        items.Add(JsonConvert.DeserializeObject<Movie_Item>(data));
-
-                        response.Close();
-                        readStream.Close();
-                    }
-                }
-                catch (Exception)
-                {
-                    Debug.WriteLine(url + " response failed.");
-                }
+                await AddImdbMovie("4e73d28b", item.Title, item.Year);
             }
-            /**/
+            */
             #endregion
 
             List<Movie_Item> favouritedItems = new List<Movie_Item>(MediaNotes_Preferences.Favourites_List);
@@ -136,6 +111,7 @@ namespace MediaNotes.Services
             return await Task.FromResult(true);
         }
 
+        // Overrides
         public override async Task<bool> UpdateItemsAsync()
         {
             List<Movie_Item> favouritedItems = new List<Movie_Item>(MediaNotes_Preferences.Favourites_List);
@@ -167,5 +143,50 @@ namespace MediaNotes.Services
 
             return await Task.FromResult(true);
         }
+        //
+
+        // Privates
+        /// <summary>
+        /// Add movie to items from imdb using key, movie title and yer
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="title"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        private async Task<bool> AddImdbMovie(string key, string title, string year)
+        {
+            string url = "http://www.omdbapi.com/?apikey=" + key + "&t=" + title.Replace(' ', '+') + "&y=" + year + "&plot=full";
+
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    Stream receiveStream = response.GetResponseStream();
+                    StreamReader readStream = null;
+                    if (response.CharacterSet == null)
+                    {
+                        readStream = new StreamReader(receiveStream);
+                    }
+                    else
+                    {
+                        readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                    }
+                    string data = readStream.ReadToEnd();
+                    items.Add(JsonConvert.DeserializeObject<Movie_Item>(data));
+
+                    response.Close();
+                    readStream.Close();
+                }
+            }
+            catch (Exception)
+            {
+                Debug.WriteLine(url + " response failed.");
+            }
+
+            return await Task.FromResult(true);
+        }
+        //
     }
 }

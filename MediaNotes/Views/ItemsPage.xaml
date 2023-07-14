@@ -27,7 +27,7 @@
                                 FontAttributes = "Bold, Italic"
                                 FontSize="16"
                                 VerticalTextAlignment="Center"
-                                WidthRequest="90"
+                                WidthRequest="75"
                                 TranslationX="-62"
                                 Margin="-10"
                                 TranslationY="41"/>
@@ -64,17 +64,13 @@
                                         </StackLayout>
                                     </StackLayout>
                                 </StackLayout>
-                                <Button
+                                <ImageButton
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemFavouriteCommand}"	
                                     CommandParameter="{Binding .}"
-                                    ImageSource="{Binding FavouriteIcon}"
-                                    BackgroundColor="Transparent" 
-                                    Scale="0.5"
-                                    HeightRequest="20"
-                                    TranslationX="25"
-                                    TranslationY="8"
+                                    Source="{Binding FavouriteIcon}"
+                                    WidthRequest="30"
                                     VerticalOptions="Start"
-                                    Margin="0"/>
+                                    BackgroundColor="Transparent"/>
                             </StackLayout>
                             <Label Text="{Binding Plot}" 
                                     LineBreakMode="TailTruncation"

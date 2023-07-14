@@ -22104,22 +22104,22 @@ namespace MediaNotes.Droid
 			public const int design_snackbar_background = 2131165283;
 			
 			// aapt resource value: 0x7F07006B
-			public const int icon_about = 2131165291;
+			public const int icon_add = 2131165291;
 			
 			// aapt resource value: 0x7F07006C
-			public const int icon_add = 2131165292;
+			public const int icon_added = 2131165292;
 			
 			// aapt resource value: 0x7F07006D
-			public const int icon_added = 2131165293;
+			public const int icon_browse = 2131165293;
 			
 			// aapt resource value: 0x7F07006E
-			public const int icon_feed = 2131165294;
+			public const int icon_rating = 2131165294;
 			
 			// aapt resource value: 0x7F07006F
-			public const int icon_rating = 2131165295;
+			public const int icon_ratingbackground = 2131165295;
 			
 			// aapt resource value: 0x7F070070
-			public const int icon_ratingbackground = 2131165296;
+			public const int icon_watchlist = 2131165296;
 			
 			// aapt resource value: 0x7F070064
 			public const int ic_arrow_down_24dp = 2131165284;
