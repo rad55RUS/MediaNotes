@@ -6,12 +6,30 @@
              xmlns:local="clr-namespace:MediaNotes.ViewModels"  
              xmlns:model="clr-namespace:MediaNotes.Models"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:localization="clr-namespace:MediaNotes.Localization"
              x:Name="BrowseFavouritesPage"
              Shell.NavBarIsVisible="false">
     <ContentPage.Behaviors>
         <xct:EventToCommandBehavior EventName="Appearing" Command="{Binding OnAppearing_Command}" />
     </ContentPage.Behaviors>
-    <CollectionView x:Name="FavouritesListView"
+    <Grid>
+        <StackLayout VerticalOptions="Center" Margin="10" Spacing="15" IsVisible="{Binding WelcomeMessage_IsVisible}">
+            <Label 
+                Text="{x:Static localization:Localization.WelcomeMessageTitle_Locale}"
+                FontSize="17" 
+                TextColor="Black" 
+                HorizontalOptions="Center" 
+                HorizontalTextAlignment="Center" 
+                FontAttributes="Bold"/>
+            <Label
+                Text="{x:Static localization:Localization.WelcomeMessageText_Locale}"
+                FontSize="16"
+                TextColor="Black"
+                VerticalOptions="Center"
+                HorizontalOptions="Center" 
+                HorizontalTextAlignment="Center"/>
+        </StackLayout>
+        <CollectionView x:Name="FavouritesListView"
             ItemsSource="{Binding Items}"
             SelectionMode="None">
         <CollectionView.ItemTemplate>
@@ -106,4 +124,5 @@
             </DataTemplate>
         </CollectionView.ItemTemplate>
     </CollectionView>
+    </Grid>
 </ContentPage>

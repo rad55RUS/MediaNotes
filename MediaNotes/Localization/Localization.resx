@@ -162,6 +162,12 @@
   <data name="Watchlist_Locale" xml:space="preserve">
     <value>Watchlist</value>
   </data>
+  <data name="WelcomeMessageText_Locale" xml:space="preserve">
+    <value>There are no movies in the watchlist yet You may to go to the Browse tab to add a movie you would like to watch.</value>
+  </data>
+  <data name="WelcomeMessageTitle_Locale" xml:space="preserve">
+    <value>Welcome to MediaNotes!</value>
+  </data>
   <data name="Writers_Locale" xml:space="preserve">
     <value>Writers</value>
   </data>

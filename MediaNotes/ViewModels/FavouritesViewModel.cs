@@ -11,7 +11,18 @@ namespace MediaNotes.ViewModels
 {
     public class FavouritesViewModel : BaseViewModel_Movies
     {
+        // Fields
+        private bool welcomeMessage_IsVisible;
+        //
+
+        // Properties
+        public bool WelcomeMessage_IsVisible
+        {
+            get { return welcomeMessage_IsVisible; }
+            set { SetProperty(ref welcomeMessage_IsVisible, value); }
+        }
         public Command OnAppearing_Command { get; }
+        //
 
         // Constructors
         public FavouritesViewModel()
@@ -27,6 +38,14 @@ namespace MediaNotes.ViewModels
 
             try
             {
+                if (FavouritesDataStore.Count == 0)
+                {
+                    WelcomeMessage_IsVisible = true;
+                }
+                else
+                {
+                    WelcomeMessage_IsVisible = false;
+                }
                 if (Items.Count != FavouritesDataStore.Count)
                 {
                     Items.Clear();

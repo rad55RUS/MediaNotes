@@ -162,6 +162,12 @@
   <data name="Watchlist_Locale" xml:space="preserve">
     <value>Буду смотреть</value>
   </data>
+  <data name="WelcomeMessageText_Locale" xml:space="preserve">
+    <value>Пока что в списке просмотра нет никаких фильмов. Вы можете перейти на вкладку Обзор, чтобы добавить сюда фильм, который вы бы хотели посмотреть.</value>
+  </data>
+  <data name="WelcomeMessageTitle_Locale" xml:space="preserve">
+    <value>Добро пожаловать в MediaNotes!</value>
+  </data>
   <data name="Writers_Locale" xml:space="preserve">
     <value>Сценаристы</value>
   </data>
