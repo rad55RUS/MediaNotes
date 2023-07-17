@@ -41,7 +41,7 @@ namespace MediaNotes.ViewModels
             IsBusy = true;
         }
 
-        async void OnItemSelected(Movie_Item item)
+        protected async void OnItemSelected(Movie_Item item)
         {
             if (item == null)
                 return;
@@ -51,7 +51,7 @@ namespace MediaNotes.ViewModels
             await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}");
         }
 
-        async void OnItemFavourite(Movie_Item item)
+        protected async void OnItemFavourite(Movie_Item item)
         {
             if (item == null)
                 return;

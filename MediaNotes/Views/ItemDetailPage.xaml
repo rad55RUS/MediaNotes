@@ -8,17 +8,42 @@
         <ScrollView>
             <StackLayout Padding="15">
                 <StackLayout Spacing="20">
-                    <Label 
-                Text="{Binding MovieTitle}" 
-                FontSize="22"
-                FontAttributes="Bold" 
-                TextColor="Black"/>
+                    <FlexLayout>
+                        <Label 
+                            Text="{Binding MovieTitle}" 
+                            FontSize="22"
+                            FontAttributes="Bold" 
+                            TextColor="Black"/>
+                        <Label 
+                            Text=" ("
+                            FontSize="22"
+                            TextColor="Black"
+                            FontAttributes="Bold" />
+                        <Label 
+                            Text="{Binding MovieYear}" 
+                            FontSize="22"
+                            FontAttributes="Bold" 
+                            TextColor="Black"/>
+                        <Label 
+                            Text=")"
+                            FontSize="22"
+                            TextColor="Black"
+                            FontAttributes="Bold" />
+                    </FlexLayout>
                     <Image Source="{Binding MoviePoster}"/>
+                    <ImageButton 
+                        Source="{Binding MovieFavouriteIcon}" 
+                        Command="{Binding ItemFavouriteCommand}"
+                        CommandParameter="{Binding CurrentMovie_Property}"
+                        BackgroundColor="Transparent" 
+                        Margin="-48" TranslationY="-512" 
+                        TranslationX="67"
+                        HorizontalOptions="Start"/>
                     <Label 
-                Text="{x:Static localization:Localization.AboutTheMovie_Locale}"
-                FontSize="Medium"
-                FontAttributes="Bold,Italic"
-                TextColor="Black"/>
+                        Text="{x:Static localization:Localization.AboutTheMovie_Locale}"
+                        FontSize="Medium"
+                        FontAttributes="Bold,Italic"
+                        TextColor="Black"/>
                 </StackLayout>
                 <BoxView HeightRequest="0"/>
                 <StackLayout Orientation="Horizontal">

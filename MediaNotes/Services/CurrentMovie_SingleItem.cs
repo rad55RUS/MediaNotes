@@ -25,6 +25,13 @@ namespace MediaNotes.Services
             return await Task.FromResult(true);
         }
 
+        public Movie_Item GetInstance()
+        {
+            if (instance == null)
+                instance = new Movie_Item();
+            return instance;
+        }
+
         public async Task<Movie_Item> GetInstanceAsync()
         {
             if (instance == null)

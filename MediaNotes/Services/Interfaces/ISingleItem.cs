@@ -9,6 +9,7 @@ namespace MediaNotes.Services
     public interface ISingleItem
     {
         Task<bool> SetInstanceAsync(Movie_Item movie_Item);
+        Movie_Item GetInstance();
         Task<Movie_Item> GetInstanceAsync();
     }
 }

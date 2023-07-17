@@ -1,15 +1,18 @@
 ﻿using MediaNotes.Models;
 using MediaNotes.Services;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace MediaNotes.ViewModels
 {
-    public class ItemDetailViewModel : BaseViewModel
+    public class ItemDetailViewModel : BaseViewModel_Movies
     {
         // Fields
+        private bool movieIsFavourite;
+        private string movieFavouriteIcon;
         private string movieTitle;
         private string moviePoster;
         private string movieYear;
@@ -30,117 +33,141 @@ namespace MediaNotes.ViewModels
         // Properties
         public string Id { get; set; }
 
+        public Movie_Item CurrentMovie_Property { get => CurrentMovie.GetInstance(); }
+
         public string MovieTitle
         {
-            get => movieTitle;
-            set => SetProperty(ref movieTitle, value);
+            get => CurrentMovie_Property.Title;
         }
-
         public string MoviePoster
         {
-            get => moviePoster;
-            set => SetProperty(ref moviePoster, value);
+            get => CurrentMovie_Property.BigPoster;
+        }
+        #region Favourites
+        public bool MovieIsFavourite
+        {
+            get
+            {
+                return movieIsFavourite;
+            }
+            set
+            {
+                movieIsFavourite = value;
+                OnPropertyChanged(MovieFavouriteIcon);
+            }
         }
 
-        //// Column data
+        public string MovieFavouriteIcon
+        {
+            get
+            {
+                if (!MovieIsFavourite)
+                {
+                    return Movie_Item.AddIcon;
+                }
+                else
+                {
+                    return Movie_Item.AddedIcon;
+                }
+            }
+            set
+            {
+                SetProperty(ref movieFavouriteIcon, value);
+            }
+        }
+        #endregion
+
+        #region Column data
         public string MovieYear
         {
-            get => movieYear;
-            set => SetProperty(ref movieYear, value);
+            get => CurrentMovie_Property.Year;
         }
         public string MovieRated
         {
-            get => movieRated;
-            set => SetProperty(ref movieRated, value);
+            get => CurrentMovie_Property.Rated;
         }
         public string MovieReleased 
         {
-            get => movieReleased;
-            set => SetProperty(ref movieReleased, value); 
+            get => CurrentMovie_Property.Released;
         }
         public string MovieCountry 
-        { 
-            get => movieCountry;
-            set => SetProperty(ref movieCountry, value); 
+        {
+            get => CurrentMovie_Property.Country;
         }
         public string MovieRuntime 
         {
-            get => movieRuntime;
-            set => SetProperty(ref movieRuntime, value);
+            get => CurrentMovie_Property.Runtime;
         }
         public string MovieGenre 
         {
-            get => movieGenre; 
-            set => SetProperty(ref movieGenre, value); 
+            get => CurrentMovie_Property.Genre;
         }
         public string MovieDirector
         {
-            get => movieDirector; 
-            set => SetProperty(ref movieDirector, value); 
+            get => CurrentMovie_Property.Director;
         }
         public string MovieWriter 
-        { 
-            get => movieWriter; 
-            set => SetProperty(ref movieWriter, value); 
+        {
+            get => CurrentMovie_Property.Writer;
         }
         public string MovieActors 
-        { 
-            get => movieActors; 
-            set => SetProperty(ref movieActors, value);
+        {
+            get => CurrentMovie_Property.Actors;
         }
         public string MovieBoxOffice 
-        { 
-            get => movieBoxOffice; 
-            set => SetProperty(ref movieBoxOffice, value);
+        {
+            get => CurrentMovie_Property.BoxOffice;
         }
         public string MovieimdbRating 
-        { 
-            get => movieimdbRating;
-            set => SetProperty(ref movieimdbRating, value);
+        {
+            get => CurrentMovie_Property.imdbRating;
         }
         public string MovieMetascore
         {
-            get => movieMetascore;
-            set => SetProperty(ref movieMetascore, value);
+            get => CurrentMovie_Property.Metascore;
         }
-        ////
+        #endregion
 
         public string MoviePlot
         {
-            get => moviePlot;
-            set => SetProperty(ref moviePlot, value);
+            get => CurrentMovie_Property.Plot;
         }
+
+        public new Command<Movie_Item> ItemFavouriteCommand { get; }
         //
 
         // Constructors
         public ItemDetailViewModel()
         {
+            ItemFavouriteCommand = new Command<Movie_Item>(OnItemFavourite);
+
             LoadMovie();
         }
         //
 
         // Methods
+        protected new void OnItemFavourite(Movie_Item item)
+        {
+            base.OnItemFavourite(item);
+
+            MovieIsFavourite = !MovieIsFavourite;
+            if (MovieIsFavourite)
+            {
+                MovieFavouriteIcon = Movie_Item.AddedIcon;
+            }
+            else
+            {
+                MovieFavouriteIcon = Movie_Item.AddIcon;
+            }
+        }
+
         public async void LoadMovie()
         {
             try
             {
                 var movie = await CurrentMovie.GetInstanceAsync();
                 Id = movie.Id;
-                MovieTitle = movie.Title + ' ' + movie.Year_Brackets;
-                MoviePoster = movie.BigPoster;
-                MovieYear = movie.Year;
-                MovieRated = movie.Rated;
-                MovieReleased = movie.Released;
-                MovieCountry = movie.Country;
-                MovieRuntime = movie.Runtime;
-                MovieGenre = movie.Genre;
-                MovieDirector = movie.Director;
-                MovieWriter = movie.Writer;
-                MovieActors = movie.Actors;
-                MovieBoxOffice = movie.BoxOffice;
-                MovieimdbRating = movie.imdbRating;
-                MovieMetascore = movie.Metascore;
-                MoviePlot = movie.Plot;
+                MovieIsFavourite = movie.IsFavourite;
             }
             catch (Exception)
             {
