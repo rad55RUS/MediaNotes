@@ -42,7 +42,7 @@ namespace MediaNotes.Services
             {
                 page_amount--;
             }
-                page_amount++;
+            page_amount++;
 
             if (Xamarin.Forms.Application.Current.Properties.ContainsKey("page_favourites"))
             {

@@ -8,27 +8,16 @@ namespace MediaNotes.Models
     /// <summary>
     /// Represents displayed movie item class
     /// </summary>
-    public class Movie_Item : INotifyPropertyChanged
+    public class Movie_Item : BaseMovie_Item, INotifyPropertyChanged
     {
         // Fields
         private bool isFavourite;
         private string favouriteIcon;
         private string runtime;
-
         //
 
         // Properties
-        //// Preloaded data
-        //// Not displayed data
-        public string Id { get; set; }
-        ////
-
-        //// Main data
-        public string Title { get; set; }
-        public string Year { get; set; }
-        ////
-
-        //// Detailed data
+        #region Detailed data
         public string Rated { get; set; }
         public string Released { get; set; }
         public string Country { get; set; }
@@ -41,26 +30,31 @@ namespace MediaNotes.Models
         public string Plot { get; set; }
         public string Metascore { get; set; }
         public string imdbRating { get; set; }
-        ////
+        #endregion
 
-        //// Urls
+        #region Urls
         public string Poster { get; set; }
         public string BigPoster { get; set; }
-        ////
+        #endregion
 
-        //// Constants
+        #region Constants
         public static string AddIcon { get => "icon_add.png"; }
         public static string AddedIcon { get => "icon_added.png"; }
-        ////
+        public static string RatingIcon { get => "icon_rating.png"; }
+        public static string RatingEmptyIcon { get => "icon_ratingempty.png"; }
+        public static string SeenIcon { get => "icon_seen.png"; }
+        public static string NotSeenIcon { get => "icon_notseen.png"; }
+        public static string NotSeenEmptyIcon { get => "icon_notseenempty.png"; }
+        #endregion
 
-        //// Defined data
+        #region Defined data
         public string Year_Brackets
         {
             get => '(' + Year + ')';
         }
-        ////
+        #endregion
 
-        //// Favourites
+        #region Favourites
         public bool IsFavourite
         {
             get
@@ -92,29 +86,52 @@ namespace MediaNotes.Models
                 SetProperty(ref favouriteIcon, value);
             }
         }
-        ////
-        //
+        #endregion
 
-        bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        #region Rating
+        public bool IsRatingIconVisible
         {
-            if (Object.Equals(storage, value))
-                return false;
-
-            storage = value;
-            OnPropertyChanged(propertyName);
-            return true;
+            get
+            { 
+                if (Convert.ToInt32(UserRating) >= 0)
+                {
+                    return true;
+                }
+                else 
+                {
+                    return false;
+                }
+            }
         }
-        
-        #region INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        public bool IsRatingTextVisible
         {
-            var changed = PropertyChanged;
-            if (changed == null)
-                return;
-
-            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            get
+            {
+                if (Convert.ToInt32(UserRating) > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        public string RatingIconProperty
+        {
+            get
+            {
+                if (Convert.ToInt32(UserRating) > 0)
+                {
+                    return RatingIcon;
+                }
+                else
+                {
+                    return SeenIcon;
+                }
+            }
         }
         #endregion
+        //
     }
 }

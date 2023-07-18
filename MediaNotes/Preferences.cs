@@ -8,6 +8,27 @@ namespace MediaNotes
 {
     static class MediaNotes_Preferences
     {
+        public static List<BaseMovie_Item> Rated_List
+        {
+            get
+            {
+                if (Preferences.Get(nameof(Rated_List), null) != null)
+                {
+                    var List = Deserialize<List<BaseMovie_Item>>(Preferences.Get(nameof(Rated_List), null));
+                    return List ?? new List<BaseMovie_Item>();
+                }
+                else
+                {
+                    return new List<BaseMovie_Item>();
+                }
+            }
+            set
+            {
+                var List = Serialize(value);
+                Preferences.Set(nameof(Rated_List), List);
+            }
+        }
+
         public static List<Movie_Item> Favourites_List
         {
             get

@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MediaNotes.Views.ItemDetailPage"
+             xmlns:local="clr-namespace:MediaNotes.ViewModels"
+             xmlns:model="clr-namespace:MediaNotes.Models"
              xmlns:localization="clr-namespace:MediaNotes.Localization"
              Shell.NavBarIsVisible="True">
     <Grid>
@@ -11,34 +13,91 @@
                     <FlexLayout>
                         <Label 
                             Text="{Binding MovieTitle}" 
-                            FontSize="22"
+                            FontSize="19"
                             FontAttributes="Bold" 
                             TextColor="Black"/>
-                        <Label 
-                            Text=" ("
-                            FontSize="22"
-                            TextColor="Black"
-                            FontAttributes="Bold" />
-                        <Label 
-                            Text="{Binding MovieYear}" 
-                            FontSize="22"
-                            FontAttributes="Bold" 
-                            TextColor="Black"/>
-                        <Label 
-                            Text=")"
-                            FontSize="22"
-                            TextColor="Black"
-                            FontAttributes="Bold" />
                     </FlexLayout>
-                    <Image Source="{Binding MoviePoster}"/>
-                    <ImageButton 
-                        Source="{Binding MovieFavouriteIcon}" 
-                        Command="{Binding ItemFavouriteCommand}"
-                        CommandParameter="{Binding CurrentMovie_Property}"
-                        BackgroundColor="Transparent" 
-                        Margin="-48" TranslationY="-512" 
-                        TranslationX="67"
-                        HorizontalOptions="Start"/>
+                    <Grid>
+                        <Image Source="{Binding MoviePoster}"/>
+                        <ImageButton 
+                            Source="{Binding MovieFavouriteIcon}" 
+                            Command="{Binding ItemFavouriteCommand}"
+                            CommandParameter="{Binding CurrentMovie_Property}"
+                            BackgroundColor="Transparent" 
+                            Margin="-48" TranslationY="40"
+                            Scale="0.9"
+                            TranslationX="67"
+                            VerticalOptions="Start"
+                            HorizontalOptions="Start"/>
+                        <Frame 
+                            BackgroundColor="White" 
+                            CornerRadius="25" 
+                            TranslationX="-15"
+                            TranslationY="-25"
+                            HorizontalOptions="End"
+                            BorderColor="Transparent"
+                            WidthRequest="50"
+                            Padding="16"
+                            VerticalOptions="Start">
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal" IsVisible="{Binding IsRatingVisibleFalseRated}" TranslationX="-4" VerticalOptions="FillAndExpand">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding OpenRatingCommand}"/>
+                                    </StackLayout.GestureRecognizers>
+                                    <Label
+                                        Text="{Binding MovieUserRating}"
+                                        FontAttributes="Bold"
+                                        FontSize="18"
+                                        TextColor="Black"
+                                        LineBreakMode="NoWrap"
+                                        Scale="1"
+                                        VerticalOptions="Center"
+                                        MinimumWidthRequest="20"
+                                        WidthRequest="25"
+                                        HorizontalOptions="Start"
+                                        HorizontalTextAlignment="End"/>
+                                    <Image
+                                        Source="icon_rating.png"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="End"
+                                        WidthRequest="23"
+                                        BackgroundColor="Transparent"/>
+                                </StackLayout>
+                                <ImageButton
+                                    Command="{Binding OpenRatingCommand}"
+                                    Source="{Binding MovieNotRatedIcon}"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    WidthRequest="25"
+                                    BackgroundColor="Transparent"
+                                    IsVisible="{Binding IsRatingVisibleFalseNotRated}"/>
+                                <ImageButton
+                                    Command="{Binding CloseRatingCommand}"
+                                    Source="icon_cancel.png"
+                                    VerticalOptions="Start"
+                                    HorizontalOptions="Center"
+                                    WidthRequest="35"
+                                    BackgroundColor="Transparent"
+                                    IsVisible="{Binding IsRatingVisibleTrue}"/>
+                                <CollectionView x:Name="RatingListView" IsVisible="{Binding IsRatingVisibleTrue}" ItemsSource="{Binding Items}" SelectionMode="None" HeightRequest="380">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout x:DataType="model:Rating">
+                                                <ImageButton
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemDetailViewModel}}, Path=ItemRateCommand}"
+                                                    CommandParameter="{Binding Id}"
+                                                    Source="{Binding Icon}"
+                                                    VerticalOptions="Start"
+                                                    HorizontalOptions="Center"
+                                                    WidthRequest="35"
+                                                    BackgroundColor="Transparent"/>
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </StackLayout>
+                        </Frame>
+                    </Grid>
                     <Label 
                         Text="{x:Static localization:Localization.AboutTheMovie_Locale}"
                         FontSize="Medium"

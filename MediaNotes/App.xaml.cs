@@ -14,6 +14,7 @@ namespace MediaNotes
 
             DependencyService.Register<Movies_DataStore>();
             DependencyService.Register<Favourites_DataStore>();
+            DependencyService.Register<Rating_DataStore>();
             DependencyService.Register<CurrentMovie_SingleItem>();
             MainPage = new AppShell();
         }

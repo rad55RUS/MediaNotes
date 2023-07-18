@@ -30,17 +30,14 @@ namespace MediaNotes.Services
         protected int page_amount = 1;
         protected List<Movie_Item> items = new List<Movie_Item>();
         //
+        public abstract Task<bool> LoadItemsAsync();
 
-        // Properties
+        #region IDataStore Realization
         public int Count
         {
             get => items.Count;
         }
-        //
 
-        public abstract Task<bool> LoadItemsAsync();
-
-        #region IDataStore Realization
         public async Task<bool> AddItemAsync(Movie_Item item)
         {
             items.Add(item);

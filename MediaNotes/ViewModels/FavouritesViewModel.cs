@@ -46,14 +46,12 @@ namespace MediaNotes.ViewModels
                 {
                     WelcomeMessage_IsVisible = false;
                 }
-                if (Items.Count != FavouritesDataStore.Count)
+
+                Items.Clear();
+                var items = await FavouritesDataStore.GetItemsAsync(true);
+                foreach (var item in items)
                 {
-                    Items.Clear();
-                    var items = await FavouritesDataStore.GetItemsAsync(true);
-                    foreach (var item in items)
-                    {
-                        Items.Add(item);
-                    }
+                    Items.Add(item);
                 }
             }
             catch (Exception ex)

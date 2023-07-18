@@ -2,6 +2,7 @@
 using MediaNotes.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -12,28 +13,20 @@ namespace MediaNotes.ViewModels
     {
         // Fields
         private bool movieIsFavourite;
+        private bool isRatingVisibleFalseRated;
+        private bool isRatingVisibleFalseNotRated;
+        private bool isRatingVisibleTrue;
         private string movieFavouriteIcon;
-        private string movieTitle;
-        private string moviePoster;
-        private string movieYear;
-        private string movieRated;
-        private string movieReleased;
-        private string movieCountry;
-        private string movieRuntime;
-        private string movieGenre;  
-        private string movieDirector;
-        private string movieWriter;
-        private string movieActors;
-        private string movieBoxOffice;
-        private string movieimdbRating;
-        private string movieMetascore;
-        private string moviePlot;
+        private string movieNotRatedIcon;
+        private int movieUserRating;
+        public IDataStore<Rating> RatingDataStore => DependencyService.Get<Rating_DataStore>();
         //
 
         // Properties
         public string Id { get; set; }
 
         public Movie_Item CurrentMovie_Property { get => CurrentMovie.GetInstance(); }
+        public new ObservableCollection<Rating> Items { get; }
 
         public string MovieTitle
         {
@@ -43,6 +36,7 @@ namespace MediaNotes.ViewModels
         {
             get => CurrentMovie_Property.BigPoster;
         }
+
         #region Favourites
         public bool MovieIsFavourite
         {
@@ -128,24 +122,149 @@ namespace MediaNotes.ViewModels
         }
         #endregion
 
+        #region Rating
+        public int MovieUserRating
+        {
+            get => movieUserRating;
+            set => SetProperty(ref movieUserRating, value);
+        }
+
+        public bool IsRatingVisibleFalseRated
+        {
+            get => isRatingVisibleFalseRated;
+            set => SetProperty(ref isRatingVisibleFalseRated, value);
+        }
+        public bool IsRatingVisibleFalseNotRated
+        {
+            get => isRatingVisibleFalseNotRated;
+            set => SetProperty(ref isRatingVisibleFalseNotRated, value);
+        }
+        public bool IsRatingVisibleTrue
+        {
+            get => isRatingVisibleTrue;
+            set => SetProperty(ref isRatingVisibleTrue, value);
+        }
+        public string MovieNotRatedIcon
+        {
+            get
+            {
+                if (MovieUserRating == 0)
+                {
+                    return Movie_Item.SeenIcon;
+                }
+                else
+                {
+                    return Movie_Item.NotSeenIcon;
+                }
+            }
+            set
+            {
+                SetProperty(ref movieNotRatedIcon, value);
+            }
+        }
+        #endregion
+
         public string MoviePlot
         {
             get => CurrentMovie_Property.Plot;
         }
 
         public new Command<Movie_Item> ItemFavouriteCommand { get; }
+        public Command<string> ItemRateCommand { get; }
+        public Command OpenRatingCommand { get; }
+        public Command CloseRatingCommand { get; }
         //
 
         // Constructors
         public ItemDetailViewModel()
         {
+            Items = new ObservableCollection<Rating>();
+
+            ItemRateCommand = new Command<string>(OnItemRated);
             ItemFavouriteCommand = new Command<Movie_Item>(OnItemFavourite);
+            OpenRatingCommand = new Command(OnRatingOpened);
+            CloseRatingCommand = new Command(OnRatingClosed);
 
             LoadMovie();
         }
         //
 
         // Methods
+        #region Rating
+        protected void OnRatingOpened()
+        {
+            IsRatingVisibleFalseRated = false;
+            IsRatingVisibleFalseNotRated = false;
+            IsRatingVisibleTrue = true;
+        }
+
+        protected void OnRatingClosed()
+        {
+            IsRatingVisibleTrue = false;
+
+            if (MovieUserRating > 0)
+            {
+                IsRatingVisibleFalseRated =  true;
+            }
+            else
+            {
+                IsRatingVisibleFalseNotRated = true;
+
+                if (MovieUserRating == 0)
+                {
+                    MovieNotRatedIcon = Movie_Item.SeenIcon;
+                }
+                else
+                {
+                    MovieNotRatedIcon = Movie_Item.NotSeenIcon;
+                }
+            }
+        }
+
+        protected async void OnItemRated(string newRating)
+        {
+            if (Items[1].Icon == Movie_Item.RatingEmptyIcon && newRating == "0")
+            {
+                newRating = "-1";
+            }
+            Items.Clear();
+            for (int i = 0; i < 11; i++)
+            {
+                Rating rating = new Rating();
+                rating.Id = i.ToString();
+                if (i == 0)
+                {
+                    if (newRating == "-1")
+                    {
+                        rating.Icon = Movie_Item.NotSeenIcon;
+                    }
+                    else
+                    {
+                        rating.Icon = Movie_Item.SeenIcon;
+                    }
+                }
+                else if (newRating == "-1")
+                {
+                    rating.Icon = Movie_Item.NotSeenEmptyIcon;
+                }
+                else if (i <= Convert.ToInt32(newRating))
+                {
+                    rating.Icon = Movie_Item.RatingIcon;
+                }
+                else
+                {
+                    rating.Icon = Movie_Item.RatingEmptyIcon;
+                }
+                await RatingDataStore.UpdateItemAsync(rating);
+
+                Items.Add(await RatingDataStore.GetItemAsync(rating.Id));
+            }
+            MovieUserRating = Convert.ToInt32(newRating);
+
+            OnItemRated(CurrentMovie_Property, newRating);
+        }
+        #endregion
+
         protected new void OnItemFavourite(Movie_Item item)
         {
             base.OnItemFavourite(item);
@@ -168,6 +287,59 @@ namespace MediaNotes.ViewModels
                 var movie = await CurrentMovie.GetInstanceAsync();
                 Id = movie.Id;
                 MovieIsFavourite = movie.IsFavourite;
+
+                Items.Clear();
+                for (int i = 0; i < 11; i++)
+                {
+                    Rating rating = new Rating();
+                    rating.Id = i.ToString();
+                    if (i == 0)
+                    {
+                        if (movie.UserRating == "-1")
+                        {
+                            rating.Icon = Movie_Item.NotSeenIcon;
+                        }
+                        else
+                        {
+                            rating.Icon = Movie_Item.SeenIcon;
+                        }
+                    }
+                    else if (movie.UserRating == "-1")
+                    {
+                        rating.Icon = Movie_Item.NotSeenEmptyIcon;
+                    }
+                    else if (i <= Convert.ToInt32(movie.UserRating))
+                    {
+                        rating.Icon = Movie_Item.RatingIcon;
+                    }
+                    else
+                    {
+                        rating.Icon = Movie_Item.RatingEmptyIcon;
+                    }
+                    await RatingDataStore.UpdateItemAsync(rating);
+
+                    Items.Add(await RatingDataStore.GetItemAsync(rating.Id));
+                }
+
+                MovieUserRating = Convert.ToInt32(movie.UserRating);
+
+                if (MovieUserRating > 0)
+                {
+                    IsRatingVisibleFalseRated = true;
+                }
+                else
+                {
+                    IsRatingVisibleFalseNotRated = true;
+
+                    if (MovieUserRating == 0)
+                    {
+                        MovieNotRatedIcon = Movie_Item.SeenIcon;
+                    }
+                    else
+                    {
+                        MovieNotRatedIcon = Movie_Item.NotSeenIcon;
+                    }
+                }
             }
             catch (Exception)
             {

@@ -69,8 +69,24 @@
                                             FontAttributes = "Bold"
                                             FontSize="14"
                                             VerticalTextAlignment="Center"
-                                            WidthRequest="250"/>
-                                    </StackLayout>
+                                            WidthRequest="260"/>
+                                            <StackLayout Orientation="Horizontal" WidthRequest="41" Spacing="5" Padding="2">
+                                                <Image
+                                                    Source="{Binding RatingIconProperty}"
+                                                    WidthRequest="18"
+                                                    IsVisible="{Binding IsRatingIconVisible}"
+                                                    VerticalOptions="Start"/>
+                                                <Label
+                                                    Text="{Binding UserRating}"
+                                                    TextColor="Black"
+                                                    FontAttributes="Bold"
+                                                    LineBreakMode="NoWrap"
+                                                    WidthRequest="25"
+                                                    IsVisible="{Binding IsRatingTextVisible}"
+                                                    VerticalOptions="Start"
+                                                    TranslationY="-1"/>
+                                            </StackLayout>
+                                        </StackLayout>
                                     <StackLayout Orientation="Horizontal" HeightRequest="22">
                                         <StackLayout Orientation="Horizontal" WidthRequest="245" Padding="0">
                                             <Label Text="{Binding Year}"

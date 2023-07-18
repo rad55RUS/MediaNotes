@@ -40,7 +40,7 @@ namespace MediaNotes.Services
             List<Movie_Item> itemsShort = new List<Movie_Item>();
 
             #region Load only one movie
-            /**/
+            /*
             using (var stream = await FileSystem.OpenAppPackageFileAsync("Movie.json"))
             {
                 using (var reader = new StreamReader(stream))
@@ -50,11 +50,11 @@ namespace MediaNotes.Services
                     items.Add(JsonConvert.DeserializeObject<Movie_Item>(fileContents));
                 }
             }
-            /**/
+            /*
             #endregion
 
             #region Load all movies
-            /*
+            /**/
             using (var stream = await FileSystem.OpenAppPackageFileAsync("Movies.json"))
             {
                 using (var reader = new StreamReader(stream))
@@ -86,10 +86,11 @@ namespace MediaNotes.Services
 
                 await AddImdbMovie("4e73d28b", item.Title, item.Year);
             }
-            */
+            /**/
             #endregion
 
             List<Movie_Item> favouritedItems = new List<Movie_Item>(MediaNotes_Preferences.Favourites_List);
+            List<BaseMovie_Item> ratedItems = new List<BaseMovie_Item>(MediaNotes_Preferences.Rated_List);
 
             for (int i = 0; i < items.Count; i++)
             {
@@ -104,6 +105,13 @@ namespace MediaNotes.Services
                     if (items[i].Title == favouritedItem.Title && items[i].Year == favouritedItem.Year)
                     {
                         items[i].IsFavourite = true;
+                    }
+                }
+                foreach (BaseMovie_Item ratedItem in ratedItems)
+                {
+                    if (items[i].Title == ratedItem.Title && items[i].Year == ratedItem.Year)
+                    {
+                        items[i].UserRating = ratedItem.UserRating;
                     }
                 }
             }
@@ -127,15 +135,34 @@ namespace MediaNotes.Services
             {
                 for (int i = 0; i < items.Count; i++)
                 {
-                    if (favouritedItems.Count == 0)
-                    {
-
-                    }
                     foreach (Movie_Item favouritedItem in favouritedItems)
                     {
                         if (items[i].Title == favouritedItem.Title && items[i].Year == favouritedItem.Year)
                         {
                             items[i].IsFavourite = true;
+                        }
+                    }
+                }
+            }
+
+            List<BaseMovie_Item> ratedItems = new List<BaseMovie_Item>(MediaNotes_Preferences.Rated_List);
+
+            if (ratedItems.Count == 0)
+            {
+                for (int i = 0; i < items.Count; i++)
+                {
+                    items[i].UserRating = "-1";
+                }
+            }
+            else
+            {
+                for (int i = 0; i < items.Count; i++)
+                {
+                    foreach (BaseMovie_Item ratedItem in ratedItems)
+                    {
+                        if (items[i].Title == ratedItem.Title && items[i].Year == ratedItem.Year)
+                        {
+                            items[i].UserRating = ratedItem.UserRating;
                         }
                     }
                 }
@@ -147,7 +174,7 @@ namespace MediaNotes.Services
 
         // Privates
         /// <summary>
-        /// Add movie to items from imdb using key, movie title and yer
+        /// Add movie to items from imdb using key, movie title and year
         /// </summary>
         /// <param name="key"></param>
         /// <param name="title"></param>
