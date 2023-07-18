@@ -30,7 +30,7 @@
                             VerticalOptions="Start"
                             HorizontalOptions="Start"/>
                         <Frame 
-                            BackgroundColor="White" 
+                            BackgroundColor="White"
                             CornerRadius="25" 
                             TranslationX="-15"
                             TranslationY="-25"
