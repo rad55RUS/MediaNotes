@@ -9,6 +9,9 @@ using Xamarin.Forms;
 
 namespace MediaNotes.ViewModels
 {
+    /// <summary>
+    /// Represents view model for favourites page view
+    /// </summary>
     public class FavouritesViewModel : BaseViewModel_Movies
     {
         // Fields

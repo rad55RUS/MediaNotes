@@ -7,7 +7,10 @@ using Xamarin.Forms;
 
 namespace MediaNotes.Models
 {
-    public class Rating
+    /// <summary>
+    /// Represents class for storing id and icon for rating icons (CLASS SHOULD BE RENAMED)
+    /// </summary>
+    public class Rating : INotifyPropertyChanged
     {
         // Fields
         private string id;

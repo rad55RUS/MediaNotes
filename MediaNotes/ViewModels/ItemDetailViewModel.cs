@@ -9,6 +9,9 @@ using Xamarin.Forms;
 
 namespace MediaNotes.ViewModels
 {
+    /// <summary>
+    /// Represents view model for browsing specific item detail data
+    /// </summary>
     public class ItemDetailViewModel : BaseViewModel_Movies
     {
         // Fields

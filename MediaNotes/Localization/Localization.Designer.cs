@@ -196,7 +196,7 @@ namespace MediaNotes.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на There are no movies in the watchlist yet You may to go to the Browse tab to add a movie you would like to watch..
+        ///   Ищет локализованную строку, похожую на There are no movies in the watchlist yet You may to go to the second tab for browsing and adding a movie you would like to watch..
         /// </summary>
         public static string WelcomeMessageText_Locale {
             get {

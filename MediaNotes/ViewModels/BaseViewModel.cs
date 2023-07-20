@@ -8,10 +8,11 @@ using Xamarin.Forms;
 
 namespace MediaNotes.ViewModels
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    /// <summary>
+    /// Represents abstract class that can be used for any view model
+    /// </summary>
+    public abstract class BaseViewModel : INotifyPropertyChanged
     {
-        public ISingleItem CurrentMovie => DependencyService.Get<CurrentMovie_SingleItem>();
-
         bool isBusy = false;
         public bool IsBusy
         {

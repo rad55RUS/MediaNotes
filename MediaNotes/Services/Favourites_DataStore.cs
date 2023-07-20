@@ -24,13 +24,23 @@ using Newtonsoft.Json.Linq;
 
 namespace MediaNotes.Services
 {
+    /// <summary>
+    /// Reprsents DataStore for storing favourite Movie_Items
+    /// </summary>
     public class Favourites_DataStore : BaseMovies_DataStore, IDataStore<Movie_Item>
     {
+        // Constructors
         public Favourites_DataStore()
         {
             Task.Run(() => this.LoadItemsAsync()).Wait();
         }
-
+        //
+        
+        // Methods
+        /// <summary>
+        /// Asynchonous method for loading favourited Movie_Items from application cache
+        /// </summary>
+        /// <returns></returns>
         public override async Task<bool> LoadItemsAsync()
         {
             int current_page = 0;
@@ -61,11 +71,16 @@ namespace MediaNotes.Services
             return await Task.FromResult(true);
         }
 
+        /// <summary>
+        /// Asynchonous method for updating states of all favourited Movie_Items by calling LoadItemsAsync method
+        /// </summary>
+        /// <returns></returns>
         public override async Task<bool> UpdateItemsAsync()
         {
             items.Clear();
             await LoadItemsAsync();
             return await Task.FromResult(true);
         }
+        //
     }
 }

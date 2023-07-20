@@ -163,7 +163,7 @@
     <value>Watchlist</value>
   </data>
   <data name="WelcomeMessageText_Locale" xml:space="preserve">
-    <value>There are no movies in the watchlist yet You may to go to the Browse tab to add a movie you would like to watch.</value>
+    <value>There are no movies in the watchlist yet You may to go to the second tab for browsing and adding a movie you would like to watch.</value>
   </data>
   <data name="WelcomeMessageTitle_Locale" xml:space="preserve">
     <value>Welcome to MediaNotes!</value>

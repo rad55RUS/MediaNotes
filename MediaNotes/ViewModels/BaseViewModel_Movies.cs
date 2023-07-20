@@ -1,6 +1,4 @@
-﻿using MediaNotes.Models;
-using MediaNotes.Services;
-using MediaNotes.Views;
+﻿// System libraries
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,14 +7,25 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+//
+
+// Project namespaces
+using MediaNotes.Models;
+using MediaNotes.Services;
+using MediaNotes.Views;
+//
 
 namespace MediaNotes.ViewModels
 {
+    /// <summary>
+    /// Represents base view model for using Movie_Item datastores
+    /// </summary>
     public class BaseViewModel_Movies : BaseViewModel
     {
         // Fields
         public IDataStore<Movie_Item> FavouritesDataStore => DependencyService.Get<Favourites_DataStore>();
         public IDataStore<Movie_Item> MoviesDataStore => DependencyService.Get<Movies_DataStore>();
+        public ISingleItem CurrentMovie => DependencyService.Get<CurrentMovie_SingleItem>();
         //
 
         // Properties
@@ -36,6 +45,7 @@ namespace MediaNotes.ViewModels
             ItemFavouriteCommand = new Command<Movie_Item>(OnItemFavourite);
         }
 
+        // Methods
         public void OnAppearing()
         {
             IsBusy = true;

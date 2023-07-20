@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace MediaNotes.Models
 {
     /// <summary>
-    /// Represents displayed movie item class
+    /// Represents movie item class for storing only main data
     /// </summary>
     public class BaseMovie_Item : INotifyPropertyChanged
     {

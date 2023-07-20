@@ -26,13 +26,23 @@ using System.Globalization;
 
 namespace MediaNotes.Services
 {
+    /// <summary>
+    /// Reprsents DataStore for storing common Movie_Items gained via API
+    /// </summary>
     public class Movies_DataStore : BaseMovies_DataStore, IDataStore<Movie_Item>
     {
+        // Constructors
         public Movies_DataStore()
         {
             Task.Run(() => this.LoadItemsAsync()).Wait();
         }
+        //
 
+        // Methods
+        /// <summary>
+        /// Asynchonous method for loading Movie_Items via API by using Movie.json file with only necessary movie data with getting extra data from saved cached data
+        /// </summary>
+        /// <returns></returns>
         public override async Task<bool> LoadItemsAsync()
         {
             int current_page = 0;
@@ -120,6 +130,10 @@ namespace MediaNotes.Services
         }
 
         // Overrides
+        /// <summary>
+        /// Asynchonous method for updating Movie_Items that data in cached data have been changed 
+        /// </summary>
+        /// <returns></returns>
         public override async Task<bool> UpdateItemsAsync()
         {
             List<Movie_Item> favouritedItems = new List<Movie_Item>(MediaNotes_Preferences.Favourites_List);
@@ -216,4 +230,5 @@ namespace MediaNotes.Services
         }
         //
     }
+    //
 }
