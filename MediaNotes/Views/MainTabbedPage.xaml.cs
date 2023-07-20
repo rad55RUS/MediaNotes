@@ -12,21 +12,11 @@ using Xamarin.Forms.Xaml;
 
 namespace MediaNotes.Views
 {
-    public partial class FavouritesPage : ContentPage
+    public partial class MainTabbedPage : TabbedPage
     {
-        FavouritesViewModel _viewModel;
-
-        public FavouritesPage()
+        public MainTabbedPage()
         {
             InitializeComponent();
-
-            BindingContext = _viewModel = new FavouritesViewModel();
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            _viewModel.OnAppearing();
         }
     }
 }

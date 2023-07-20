@@ -5,7 +5,8 @@
              xmlns:local="clr-namespace:MediaNotes.ViewModels"
              xmlns:model="clr-namespace:MediaNotes.Models"
              xmlns:localization="clr-namespace:MediaNotes.Localization"
-             Shell.NavBarIsVisible="True">
+             Shell.NavBarIsVisible="True"
+             Shell.BackgroundColor="{StaticResource Primary}">
     <Grid>
         <ScrollView>
             <StackLayout Padding="15">

@@ -34,6 +34,7 @@ namespace MediaNotes.ViewModels
         // Methods
         async void ExecuteLoadItemsCommand()
         {
+            OnAppearing();
             IsBusy = true;
 
             try

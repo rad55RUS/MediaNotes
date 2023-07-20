@@ -22,8 +22,5 @@
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
         </ResourceDictionary>
     </Shell.Resources>
-    <TabBar>
-        <ShellContent Title="{x:Static localization:Localization.Watchlist_Locale}" Icon="icon_watchlist.png" Route="AboutPage" ContentTemplate="{DataTemplate local:FavouritesPage}"/>
-        <ShellContent Title="{x:Static localization:Localization.Browse_Locale}" Icon="icon_browse.png" ContentTemplate="{DataTemplate local:ItemsPage}" />
-    </TabBar>
+    <ShellContent ContentTemplate="{DataTemplate local:MainTabbedPage}" />
 </Shell>

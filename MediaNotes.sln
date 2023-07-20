@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaNotes.Android", "Media
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaNotes.iOS", "MediaNotes.iOS\MediaNotes.iOS.csproj", "{0106E95C-CE2B-4A15-9FDB-C5C4FB947990}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaNotes", "MediaNotes\MediaNotes.csproj", "{3B5640FE-DFE0-4A30-9662-C5CA497D5044}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaNotes", "MediaNotes\MediaNotes.csproj", "{3B5640FE-DFE0-4A30-9662-C5CA497D5044}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
